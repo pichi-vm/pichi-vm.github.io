@@ -40,13 +40,16 @@ Three roles, kept separate so sections are reusable across pages:
      how-it-works and trust steps, audience columns, comparison table. Inline
      comments document allowed values (e.g. `dot: gray|gold|green`,
      `style: primary|ghost`).
-   - **`src/content/prose/*.md`** — standalone section paragraphs (hero
-     sub-line, intros, captions, comparison caveat). Markdown, so `**bold**`
-     and `[links](…)` render as HTML.
-   - **`src/content/schema.ts`** — Zod schemas that parse the YAML at build
-     time. Each section's shape is exported on its own (`heroSchema`,
+   - **`src/content/prose.yaml`** — the standalone section paragraphs (hero
+     sub-line, intros, captions, comparison caveat), one string per snippet.
+     Rendered as-is with `set:html`, so inline HTML like `<br>` is live;
+     Markdown syntax (`**bold**`) is not processed — use `<strong>` etc. if you
+     need emphasis.
+   - **`src/content/schema.ts`** — Zod schemas that parse both YAML files at
+     build time. Each section's shape is exported on its own (`heroSchema`,
      `problemSchema`, …) and the page schema is composed from them; the file
-     also exports the validated, typed `landing` object and the `Landing` type.
+     also exports the validated, typed `landing` and `prose` objects (and the
+     `Landing` / `Prose` types).
 
 2. **Section components are presentation and take content as input — they do
    not read the global `landing`.** Components are **named for the layout they
@@ -59,12 +62,12 @@ Three roles, kept separate so sections are reusable across pages:
    same component.
 
 3. **Pages are the composition root, and the one place a content role meets a
-   layout.** `src/pages/index.astro` imports `landing` + the prose `.md` files
-   and maps each content slice onto a layout component — data via `content`,
-   prose via slots:
+   layout.** `src/pages/index.astro` imports `landing` + `prose` and maps each
+   content slice onto a layout component — data via `content`, prose rendered
+   into a named slot with `set:html`:
    ```astro
    <CardGrid content={landing.problem}>
-     <ProblemIntro slot="intro" />
+     <p slot="intro" set:html={prose.problemIntro} />
    </CardGrid>
    ```
    The YAML keys stay content-named (`problem`, `why`, `who`) — the page is
@@ -91,8 +94,8 @@ public/                static assets served at site root (pichi-logo.png, robots
 src/
   content/
     landing.yaml       ← edit page copy here (cards, table, steps, CTAs, terminal)
-    prose/*.md         ← edit section paragraphs here (Markdown)
-    schema.ts          per-section schemas + composed `landing` + `Landing` type
+    prose.yaml         ← edit section paragraphs here (one string per snippet)
+    schema.ts          per-section schemas + composed `landing` + `prose` + types
   styles/global.css    design tokens (:root), reset, shared section/button
                        styles, and .grid / .grid-2 / .grid-3 utilities
   layouts/Layout.astro <head> meta as props (title/description/…) + page shell
@@ -115,7 +118,9 @@ a trailer). `Hero`, `Footer`, and the `Steps` / `Ctas` leaves are shared too.
 `FooContent` and any prose via a named `<slot>` — do not import `landing` inside
 the component. Add a `fooSchema` in `schema.ts`, export `FooContent =
 z.infer<typeof fooSchema>`, include it in the page schema, add the data to
-`landing.yaml`, then place `<Foo content={landing.foo}>` in the page.
+`landing.yaml` (and any intro/caption line to `prose.yaml`), then place
+`<Foo content={landing.foo}>` in the page, feeding prose into the slot with
+`<p slot="intro" set:html={prose.fooIntro} />`.
 
 **Adding a page:** create `src/content/<page>.yaml` and a matching schema in
 `schema.ts` composed from the exported section schemas (`heroSchema`,
@@ -135,9 +140,10 @@ same `CardGrid`, `ComparisonTable`, etc. render any page's content unchanged.
 - **License headers:** source files carry the SPDX pair
   `Advanced Micro Devices, Inc.` / `Apache-2.0`. Match the surrounding style
   when adding files.
-- **`smartypants: false`** (astro.config) keeps prose punctuation verbatim —
-  straight quotes and hyphens are intentional; don't "fix" them to curly quotes
-  or em-dashes.
+- **Punctuation is verbatim.** `prose.yaml` is rendered as-is (not through a
+  Markdown processor), and `smartypants: false` (astro.config) covers any `.md`
+  that returns — straight quotes and hyphens are intentional; don't "fix" them
+  to curly quotes or em-dashes.
 - **YAML import** works via the `@rollup/plugin-yaml` Vite plugin wired in
   `astro.config.mjs`.
 

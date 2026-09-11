@@ -13,6 +13,7 @@
 // schemas, then `parse` your page's YAML the same way `landing` does below.
 import { z } from "astro/zod";
 import rawLanding from "./landing.yaml";
+import rawProse from "./prose.yaml";
 
 // ── Reusable primitives ───────────────────────────────
 
@@ -156,3 +157,21 @@ export type ComparisonTableContent = z.infer<typeof comparisonSchema>;
 export type FooterContent = z.infer<typeof footerSchema>;
 
 export const landing: Landing = landingSchema.parse(rawLanding);
+
+// ── Section prose ─────────────────────────────────────
+// The standalone paragraphs from prose.yaml. Each is rendered into a section's
+// named slot with set:html (so inline HTML like <br> is live). Keys are the
+// snippet names, not section names, so any page can pull the lines it needs.
+const proseSchema = z.object({
+  heroSub: z.string(),
+  problemIntro: z.string(),
+  howItWorksIntro: z.string(),
+  trustIntro: z.string(),
+  trustCaption: z.string(),
+  tryItCaption: z.string(),
+  comparisonCaveat: z.string(),
+});
+
+export type Prose = z.infer<typeof proseSchema>;
+
+export const prose: Prose = proseSchema.parse(rawProse);

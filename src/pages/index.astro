@@ -3,12 +3,12 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 // The landing page: the one place that reads content and wires it into the
-// section components. Data slices come from landing.yaml (via the schema);
-// prose paragraphs come from content/prose/*.md and are passed into each
-// section's named slot. A new page follows this same shape — import the
-// sections it reuses, hand them their data + prose.
+// section components. Data slices come from landing.yaml and prose paragraphs
+// from prose.yaml (both via the schema); each prose line is rendered into a
+// section's named slot with set:html. A new page follows this same shape —
+// import the sections it reuses, hand them their data + prose.
 import Layout from "../layouts/Layout.astro";
-import { landing } from "../content/schema";
+import { landing, prose } from "../content/schema";
 
 // Components are named for the layout they render; this page maps each content
 // slice onto one. e.g. the "problem" content renders as a CardGrid, "why" as a
@@ -24,39 +24,30 @@ import StepsCaption from "../components/StepsCaption.astro";
 import ColumnLists from "../components/ColumnLists.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
 import Footer from "../components/Footer.astro";
-
-// Section prose (Markdown → HTML). Each renders into a component's named slot.
-import { Content as HeroSub } from "../content/prose/hero-sub.md";
-import { Content as ProblemIntro } from "../content/prose/problem-intro.md";
-import { Content as HowItWorksIntro } from "../content/prose/how-it-works-intro.md";
-import { Content as TrustIntro } from "../content/prose/trust-intro.md";
-import { Content as TrustCaption } from "../content/prose/trust-caption.md";
-import { Content as TryItCaption } from "../content/prose/try-it-caption.md";
-import { Content as ComparisonCaveat } from "../content/prose/comparison-caveat.md";
 ---
 
 <Layout>
   <UnderConstructionBanner />
   <Hero hero={landing.hero} ctas={landing.ctas}>
-    <HeroSub slot="sub" />
+    <p slot="sub" set:html={prose.heroSub} />
   </Hero>
   <CardGrid content={landing.problem}>
-    <ProblemIntro slot="intro" />
+    <p slot="intro" set:html={prose.problemIntro} />
   </CardGrid>
   <FeatureGrid content={landing.why} />
   <Terminal content={landing.tryIt}>
-    <TryItCaption slot="caption" />
+    <p slot="caption" set:html={prose.tryItCaption} />
   </Terminal>
   <StepsFanout content={landing.howItWorks}>
-    <HowItWorksIntro slot="intro" />
+    <p slot="intro" set:html={prose.howItWorksIntro} />
   </StepsFanout>
   <StepsCaption content={landing.trust}>
-    <TrustIntro slot="intro" />
-    <TrustCaption slot="caption" />
+    <p slot="intro" set:html={prose.trustIntro} />
+    <p slot="caption" set:html={prose.trustCaption} />
   </StepsCaption>
   <ColumnLists content={landing.who} />
   <ComparisonTable content={landing.comparison}>
-    <ComparisonCaveat slot="caveat" />
+    <p slot="caveat" set:html={prose.comparisonCaveat} />
   </ComparisonTable>
   <Footer footer={landing.footer} ctas={landing.ctas} />
 </Layout>

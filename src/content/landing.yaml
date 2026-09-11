@@ -3,8 +3,8 @@
 #
 #   • This file holds every REPEATED item: cards, props, steps, table rows,
 #     list items, CTA buttons, terminal lines. Edit their text freely.
-#   • Longer standalone paragraphs (section intros, captions) live as Markdown
-#     in src/content/prose/*.md so you can use **bold** / [links](…) there.
+#   • Standalone paragraphs (section intros, captions) live in prose.yaml,
+#     rendered as-is with set:html (use inline HTML like <br> for a break).
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Call-to-action buttons, reused in the hero and footer.

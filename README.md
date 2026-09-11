@@ -34,9 +34,10 @@ The copy lives in two places:
   the how-it-works / trust steps, the audience lists, and the comparison table
   (columns + rows). Edit the text in place. Comments in the file explain each
   field (e.g. `dot: gray|gold|green`, `style: primary|ghost`).
-- **`src/content/prose/*.md`** — the standalone paragraphs that head a section
-  (hero sub-line, section intros, captions, the comparison caveat). These are
-  Markdown, so you can add `**bold**` or `[links](…)` and they render as HTML.
+- **`src/content/prose.yaml`** — the standalone paragraphs that head a section
+  (hero sub-line, section intros, captions, the comparison caveat), one string
+  per snippet. They're rendered as-is, so inline HTML like `<br>` works; for
+  emphasis write `<strong>…</strong>` (Markdown `**bold**` is not processed).
 
 Add a comparison row by appending to `comparison.rows`; add a card by appending
 to `problem.cards`; the components loop over the data, so the page updates with
@@ -55,8 +56,8 @@ public/            static assets served at the site root (pichi-logo.png,
 src/
   content/
     landing.yaml   ← edit page copy here (cards, table, steps, CTAs, terminal)
-    prose/*.md     ← edit section paragraphs here (Markdown)
-    schema.ts      per-section schemas + the composed, typed `landing` object
+    prose.yaml     ← edit section paragraphs here (one string per snippet)
+    schema.ts      per-section schemas + the composed, typed `landing` + `prose`
   styles/
     global.css     design tokens (:root), reset, shared section/button styles,
                    and the .grid / .grid-2 / .grid-3 responsive utilities
