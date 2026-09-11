@@ -26,9 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build with Astro
+        # node-version omitted: the action reads .nvmrc, keeping it the single
+        # source of truth (CI does the same via node-version-file).
         uses: withastro/action@v4
-        with:
-          node-version: 24
 
   deploy:
     needs: build

@@ -73,7 +73,7 @@ Three roles, kept separate so sections are reusable across pages:
    The YAML keys stay content-named (`problem`, `why`, `who`) — the page is
    where "the problem section is rendered as a card grid" is decided.
 
-**To change wording, edit the YAML or the `.md` files — not the components.**
+**To change wording, edit `landing.yaml` or `prose.yaml` — not the components.**
 The components loop over the data, so appending a `comparison.rows` or
 `problem.cards` entry updates the page with zero code changes.
 
@@ -140,10 +140,9 @@ same `CardGrid`, `ComparisonTable`, etc. render any page's content unchanged.
 - **License headers:** source files carry the SPDX pair
   `Advanced Micro Devices, Inc.` / `Apache-2.0`. Match the surrounding style
   when adding files.
-- **Punctuation is verbatim.** `prose.yaml` is rendered as-is (not through a
-  Markdown processor), and `smartypants: false` (astro.config) covers any `.md`
-  that returns — straight quotes and hyphens are intentional; don't "fix" them
-  to curly quotes or em-dashes.
+- **Punctuation is verbatim.** `prose.yaml` is rendered as-is with `set:html`
+  (not through a Markdown processor), so straight quotes and hyphens are
+  intentional; don't "fix" them to curly quotes or em-dashes.
 - **YAML import** works via the `@rollup/plugin-yaml` Vite plugin wired in
   `astro.config.mjs`.
 

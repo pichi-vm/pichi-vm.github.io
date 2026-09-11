@@ -9,11 +9,6 @@ export default defineConfig({
   base: "/",
   // Emits sitemap-index.xml + sitemap-0.xml from `site` above.
   integrations: [sitemap()],
-  markdown: {
-    // Keep prose punctuation verbatim (no curly quotes / em-dash mangling),
-    // so it matches the straight quotes used elsewhere on the page.
-    smartypants: false,
-  },
   vite: {
     // Lets components `import data from '../content/landing.yaml'`.
     plugins: [yaml()],
