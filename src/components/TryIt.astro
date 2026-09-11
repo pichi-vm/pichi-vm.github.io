@@ -1,15 +1,19 @@
 ---
 // ── Try it ────────────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as Caption } from "../content/prose/try-it-caption.md";
 
-const { tryIt } = data;
+const { tryIt } = landing;
 ---
 
 <section class="section">
   <div class="section-title">{tryIt.title}</div>
   <div class="term">
-    <div class="term-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="term-bar" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <pre>{tryIt.terminal.map((line, i) => (
       <Fragment>
         {i > 0 && "\n"}
@@ -19,7 +23,9 @@ const { tryIt } = data;
       </Fragment>
     ))}</pre>
   </div>
-  <div class="illus"><Caption /></div>
+  <div class="illus">
+    <Caption />
+  </div>
 </section>
 
 <style>

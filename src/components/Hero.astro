@@ -1,10 +1,10 @@
 ---
 // ── Hero ──────────────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as HeroSub } from "../content/prose/hero-sub.md";
 import Ctas from "./Ctas.astro";
 
-const { hero, ctas } = data;
+const { hero, ctas } = landing;
 ---
 
 <header class="hero">
@@ -17,7 +17,9 @@ const { hero, ctas } = data;
   />
   <div class="eyebrow">{hero.eyebrow}</div>
   <h1 set:html={hero.title} />
-  <div class="sub"><HeroSub /></div>
+  <div class="sub">
+    <HeroSub />
+  </div>
   <Ctas ctas={ctas} />
 </header>
 

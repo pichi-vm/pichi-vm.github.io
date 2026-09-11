@@ -1,34 +1,27 @@
 ---
 // ── Who is this for ───────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 
-const { who } = data;
+const { who } = landing;
 ---
 
 <section class="section">
   <div class="section-title">{who.title}</div>
-  <div class="who">
-    {
-      who.columns.map((col) => (
-        <div class="whocol">
-          <h3>{col.heading}</h3>
-          <ul>
-            {col.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))
-    }
+  <div class="grid grid-2">
+    {who.columns.map((col) => (
+      <div class="whocol">
+        <h3>{col.heading}</h3>
+        <ul>
+          {col.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
-  .who {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
   .whocol {
     background: var(--surface);
     border: 1px solid var(--border);

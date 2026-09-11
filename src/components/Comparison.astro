@@ -1,9 +1,9 @@
 ---
 // ── Comparison ────────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as Caveat } from "../content/prose/comparison-caveat.md";
 
-const { comparison } = data;
+const { comparison } = landing;
 const { columns, rows } = comparison;
 ---
 
@@ -14,28 +14,26 @@ const { columns, rows } = comparison;
       <thead>
         <tr>
           <th></th>
-          {
-            columns.map((col) => (
-              <th class:list={[{ pichi: col.pichi }]}>{col.label}</th>
-            ))
-          }
+          {columns.map((col) => (
+            <th class:list={[{ pichi: col.pichi }]}>{col.label}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {
-          rows.map((row) => (
-            <tr>
-              <th>{row.label}</th>
-              {columns.map((col) => (
-                <td class:list={[{ pichi: col.pichi }]}>{row[col.key]}</td>
-              ))}
-            </tr>
-          ))
-        }
+        {rows.map((row) => (
+          <tr>
+            <th>{row.label}</th>
+            {columns.map((col) => (
+              <td class:list={[{ pichi: col.pichi }]}>{row[col.key]}</td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   </div>
-  <div class="caveat"><Caveat /></div>
+  <div class="caveat">
+    <Caveat />
+  </div>
 </section>
 
 <style>

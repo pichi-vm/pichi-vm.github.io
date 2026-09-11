@@ -1,15 +1,19 @@
 ---
 // Renders the row of call-to-action buttons. Shared by Hero and Footer.
 // Each cta: { label, href, style: "primary" | "ghost" }.
+import type { Landing } from "../content/schema";
+
+interface Props {
+  ctas: Landing["ctas"];
+}
+
 const { ctas } = Astro.props;
 ---
 
 <div class="cta-row">
-  {
-    ctas.map((cta) => (
-      <a class={`btn btn-${cta.style}`} href={cta.href}>
-        {cta.label}
-      </a>
-    ))
-  }
+  {ctas.map((cta) => (
+    <a class={`btn btn-${cta.style}`} href={cta.href}>
+      {cta.label}
+    </a>
+  ))}
 </div>

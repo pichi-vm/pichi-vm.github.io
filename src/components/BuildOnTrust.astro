@@ -1,18 +1,22 @@
 ---
 // ── Build on trust ────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as Intro } from "../content/prose/trust-intro.md";
 import { Content as Caption } from "../content/prose/trust-caption.md";
 import Steps from "./Steps.astro";
 
-const { trust } = data;
+const { trust } = landing;
 ---
 
 <section class="section">
   <h2 class="h">{trust.heading}</h2>
-  <div class="section-desc trust-intro"><Intro /></div>
+  <div class="section-desc trust-intro">
+    <Intro />
+  </div>
   <Steps steps={trust.steps} />
-  <div class="illus"><Caption /></div>
+  <div class="illus">
+    <Caption />
+  </div>
 </section>
 
 <style>

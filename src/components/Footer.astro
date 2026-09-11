@@ -1,21 +1,19 @@
 ---
 // ── Footer ────────────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import Ctas from "./Ctas.astro";
 
-const { footer, ctas } = data;
+const { footer, ctas } = landing;
 ---
 
 <footer class="foot">
   <Ctas ctas={ctas} />
   <p class="foot-meta">
-    {
-      footer.meta.map((link) => (
-        <Fragment>
-          <a href={link.href}>{link.label}</a> ·{" "}
-        </Fragment>
-      ))
-    }
+    {footer.meta.map((link) => (
+      <Fragment>
+        <a href={link.href}>{link.label}</a> ·{" "}
+      </Fragment>
+    ))}
     {footer.license}
   </p>
   <span class="badge">{footer.badge}</span>

@@ -1,33 +1,26 @@
 ---
 // ── Why pichi ─────────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 
-const { why } = data;
+const { why } = landing;
 ---
 
 <section class="section">
   <div class="section-title">{why.title}</div>
-  <div class="props">
-    {
-      why.props.map((prop) => (
-        <div class="prop">
-          <h3>{prop.heading}</h3>
-          <p>
-            {prop.body}
-            {prop.note && <span class="note">{prop.note}</span>}
-          </p>
-        </div>
-      ))
-    }
+  <div class="grid grid-2">
+    {why.props.map((prop) => (
+      <div class="prop">
+        <h3>{prop.heading}</h3>
+        <p>
+          {prop.body}
+          {prop.note && <span class="note">{prop.note}</span>}
+        </p>
+      </div>
+    ))}
   </div>
 </section>
 
 <style>
-  .props {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
   .prop {
     background: var(--surface);
     border: 1px solid var(--border);

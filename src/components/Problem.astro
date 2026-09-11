@@ -1,26 +1,26 @@
 ---
 // ── The problem ───────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as Intro } from "../content/prose/problem-intro.md";
 
-const { problem } = data;
+const { problem } = landing;
 ---
 
 <section class="section">
   <h2 class="h">{problem.heading}</h2>
-  <div class="section-desc problem-intro"><Intro /></div>
-  <div class="trio">
-    {
-      problem.cards.map((card) => (
-        <div class:list={["pcard", { win: card.win }]}>
-          <div class="name">
-            <span class={`dot d-${card.dot}`} />
-            {card.name}
-          </div>
-          <p>{card.body}</p>
+  <div class="section-desc problem-intro">
+    <Intro />
+  </div>
+  <div class="grid grid-3">
+    {problem.cards.map((card) => (
+      <div class:list={["pcard", { win: card.win }]}>
+        <div class="name">
+          <span class={`dot d-${card.dot}`} />
+          {card.name}
         </div>
-      ))
-    }
+        <p>{card.body}</p>
+      </div>
+    ))}
   </div>
 </section>
 
@@ -28,11 +28,6 @@ const { problem } = data;
   .problem-intro {
     text-align: center;
     margin-bottom: 1.75rem;
-  }
-  .trio {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
   }
   .pcard {
     background: var(--surface);

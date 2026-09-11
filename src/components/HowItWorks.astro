@@ -1,21 +1,27 @@
 ---
 // ── How it works ──────────────────────────────────────
-import data from "../content/landing.yaml";
+import { landing } from "../content/schema";
 import { Content as Intro } from "../content/prose/how-it-works-intro.md";
 import Steps from "./Steps.astro";
 
-const { howItWorks } = data;
+const { howItWorks } = landing;
 ---
 
 <section class="section">
   <h2 class="h">{howItWorks.heading}</h2>
-  <div class="section-desc hiw-intro"><Intro /></div>
+  <div class="section-desc hiw-intro">
+    <Intro />
+  </div>
   <Steps steps={howItWorks.steps} />
   <div class="fanout">
     <div class="fan-img">{howItWorks.fanout.image}</div>
-    <div class="fan-arrows" aria-hidden="true">↙ ↓ ↘</div>
+    <div class="fan-arrows" aria-hidden="true">
+      ↙ ↓ ↘
+    </div>
     <div class="fan-targets">
-      {howItWorks.fanout.targets.map((t) => <span class="fan-t">{t}</span>)}
+      {howItWorks.fanout.targets.map((t) => (
+        <span class="fan-t">{t}</span>
+      ))}
     </div>
   </div>
 </section>
