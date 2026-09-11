@@ -1,0 +1,57 @@
+---
+// ── Try it ────────────────────────────────────────────
+---
+
+<section class="section">
+  <div class="section-title">Try it</div>
+  <div class="term">
+    <div class="term-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+    <pre><span class="p">$</span> <span class="c">pichi pull ghcr.io/acme/app:1.0</span>
+<span class="o">Fetched app:1.0 (portable machine image)</span>
+
+<span class="p">$</span> <span class="c">pichi run app:1.0</span>
+<span class="o">Booting VM… kernel measured, handing off.</span></pre>
+  </div>
+  <p class="illus">Illustrative — the same pull / run flow you'd use for a container image.</p>
+</section>
+
+<style>
+  .term {
+    background: #0a0d12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+  .term-bar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .term-bar span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .term pre {
+    margin: 0;
+    padding: 1.1rem 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .term .p {
+    color: var(--green);
+  }
+  .term .c {
+    color: #fff;
+  }
+  .term .o {
+    color: var(--muted);
+  }
+</style>

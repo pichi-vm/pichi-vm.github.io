@@ -1,0 +1,197 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pichi-vm — The container workflow, for real virtual machines</title>
+    <meta
+      name="description"
+      content="pichi-vm brings the container workflow to full virtual machines: one portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="pichi-vm — The container workflow, for real virtual machines" />
+    <meta
+      property="og:description"
+      content="One portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="pichi-vm — The container workflow, for real virtual machines" />
+    <meta
+      name="twitter:description"
+      content="One portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement."
+    />
+  </head>
+  <body>
+    <div class="page">
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  :root {
+    --bg: #0d1117;
+    --fg: #c9d1d9;
+    --muted: #8b949e;
+    --surface: #161b22;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --gold: #d29922;
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    display: flex;
+    justify-content: center;
+    padding: 0 1.5rem;
+  }
+  .page {
+    max-width: 52rem;
+    width: 100%;
+    padding: 4rem 0 5rem;
+  }
+  a {
+    color: var(--accent);
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+  }
+
+  /* ── Section scaffolding ──────────────────────────────── */
+  .section {
+    margin-bottom: 4rem;
+  }
+  .section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: -0.75rem 0 1.5rem;
+  }
+  h2.h {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  /* ── Shared card/step grids ───────────────────────────── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.35rem;
+  }
+  .step .n {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .step h3 {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  .step p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .illus {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.75rem;
+  }
+
+  /* ── Shared buttons ───────────────────────────────────── */
+  .cta-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0d1117;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover {
+    background: #79c0ff;
+    border-color: #79c0ff;
+  }
+  .btn-ghost {
+    color: var(--fg);
+    border-color: var(--border);
+    background: var(--surface);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  @media (max-width: 680px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    .trio,
+    .props,
+    .steps,
+    .who {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

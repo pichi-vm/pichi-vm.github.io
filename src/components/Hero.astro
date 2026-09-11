@@ -1,0 +1,64 @@
+---
+// ── Hero ──────────────────────────────────────────────
+---
+
+<header class="hero">
+  <img
+    class="hero-logo"
+    src="/pichi-logo.png"
+    width="112"
+    height="112"
+    alt="pichi-vm mascot — a curled-up armadillo line drawing"
+  />
+  <div class="eyebrow">pichi-vm</div>
+  <h1>The container workflow,<br />for real virtual machines.</h1>
+  <p class="sub">
+    One portable image that boots identically on your laptop, in the cloud, or on bare metal, with
+    real isolation and a small, fast boot chain with a deterministic launch measurement.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="docs.html">Explore the docs</a>
+    <a class="btn btn-ghost" href="wasm-demo/index.html">Try the live demo</a>
+  </div>
+</header>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 2rem 0 3.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3.5rem;
+  }
+  .hero-logo {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto 1.5rem;
+    display: block;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.02em;
+  }
+  .hero .sub {
+    font-size: 1.15rem;
+    color: var(--fg);
+    max-width: 38rem;
+    margin: 0 auto 2rem;
+  }
+</style>

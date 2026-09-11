@@ -1,0 +1,62 @@
+---
+// ── Why pichi ─────────────────────────────────────────
+---
+
+<section class="section">
+  <div class="section-title">Why pichi</div>
+  <div class="props">
+    <div class="prop">
+      <h3>Run anywhere</h3>
+      <p>One image runs on Linux, macOS, and Windows hosts, and on bare metal — no rebuild.</p>
+    </div>
+    <div class="prop">
+      <h3>Real isolation</h3>
+      <p>Your own kernel and memory, not a slice of the host's.</p>
+    </div>
+    <div class="prop">
+      <h3>Verifiable boot</h3>
+      <p>
+        A small boot chain with a deterministic launch measurement, so you can check what actually
+        booted.<span class="note"
+          >Hardware attestation targets confidential-computing platforms (AMD SEV-SNP, with Intel
+          TDX and Arm CCA drafted) — on the roadmap, not yet shipping.</span
+        >
+      </p>
+    </div>
+    <div class="prop">
+      <h3>Container-like workflow</h3>
+      <p>Pull, push, run, and cache over any OCI registry — the workflow you already know.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .props {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .prop {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.35rem 1.5rem;
+  }
+  .prop h3 {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  .prop p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .prop .note {
+    display: block;
+    margin-top: 0.55rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    opacity: 0.85;
+  }
+</style>

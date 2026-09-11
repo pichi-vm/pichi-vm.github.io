@@ -1,0 +1,41 @@
+---
+// ── Build on trust ────────────────────────────────────
+---
+
+<section class="section">
+  <h2 class="h">Build on trust, extend it forward</h2>
+  <p class="section-desc" style="text-align:center;margin-bottom:1.75rem">
+    Images are built as layers, and each layer cryptographically binds to the one below it — so one
+    trust anchor validates the whole stack.
+  </p>
+  <div class="steps">
+    <div class="step">
+      <div class="n">START</div>
+      <h3>From a trusted base</h3>
+      <p>
+        Begin with a base image whose integrity you already vouch for — a shared root others build
+        from.
+      </p>
+    </div>
+    <div class="step">
+      <div class="n">EXTEND</div>
+      <h3>Add your own layers</h3>
+      <p>
+        Stack your changes on top. Each layer is a read-only, integrity-protected image bound into
+        the chain below it.
+      </p>
+    </div>
+    <div class="step">
+      <div class="n">VERIFY</div>
+      <h3>One anchor checks it all</h3>
+      <p>
+        A single trusted root validates the entire stack. Tamper with any layer and the check fails
+        — no trust is lost as you extend.
+      </p>
+    </div>
+  </div>
+  <p class="illus">
+    Shared bases mean common layers are fetched, signed, and scanned once — then reused across every
+    image that builds on them.
+  </p>
+</section>

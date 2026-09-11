@@ -1,0 +1,78 @@
+---
+// ── How it works ──────────────────────────────────────
+---
+
+<section class="section">
+  <h2 class="h">How it works</h2>
+  <p class="section-desc" style="text-align:center;margin-bottom:1.75rem">
+    Three steps, and the middle one is a registry you already have.
+  </p>
+  <div class="steps">
+    <div class="step">
+      <div class="n">01 · BUILD</div>
+      <h3>Build</h3>
+      <p>Package your kernel and root filesystem into one portable image.</p>
+    </div>
+    <div class="step">
+      <div class="n">02 · DISTRIBUTE</div>
+      <h3>Distribute</h3>
+      <p>Push it to any OCI registry, the same place your container images live.</p>
+    </div>
+    <div class="step">
+      <div class="n">03 · RUN</div>
+      <h3>Run</h3>
+      <p>Pull and boot it anywhere — laptop, cloud, or bare metal.</p>
+    </div>
+  </div>
+  <div class="fanout">
+    <div class="fan-img">one portable image</div>
+    <div class="fan-arrows" aria-hidden="true">↙ ↓ ↘</div>
+    <div class="fan-targets">
+      <span class="fan-t">your laptop</span>
+      <span class="fan-t">the cloud</span>
+      <span class="fan-t">bare metal</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fanout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .fan-img {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: #fff;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9rem;
+  }
+  .fan-arrows {
+    color: var(--muted);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+  .fan-targets {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .fan-t {
+    font-size: 0.85rem;
+    color: var(--fg);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+  }
+</style>

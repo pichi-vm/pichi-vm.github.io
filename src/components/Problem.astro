@@ -1,0 +1,80 @@
+---
+// ── The problem ───────────────────────────────────────
+---
+
+<section class="section">
+  <h2 class="h">Containers vs. VMs: pick your compromise</h2>
+  <p class="section-desc" style="text-align:center;margin-bottom:1.75rem">
+    Two ways to run software in isolation today — each asks you to give something up.
+  </p>
+  <div class="trio">
+    <div class="pcard">
+      <div class="name"><span class="dot d-gray"></span>Containers</div>
+      <p>
+        Fast and portable, but every container shares the host kernel. One kernel bug can cross the
+        boundary.
+      </p>
+    </div>
+    <div class="pcard">
+      <div class="name"><span class="dot d-gold"></span>Traditional VMs</div>
+      <p>
+        Strong isolation, but heavy — and they boot through large UEFI firmware, a big,
+        hard-to-reproduce trusted base.
+      </p>
+    </div>
+    <div class="pcard win">
+      <div class="name"><span class="dot d-green"></span>pichi</div>
+      <p>
+        Container-style workflow, true VM isolation, and a tiny boot chain with a deterministic
+        launch measurement.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .pcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem;
+  }
+  .pcard.win {
+    border-color: #2c5a2e;
+    background: linear-gradient(180deg, rgba(63, 185, 80, 0.06), transparent);
+  }
+  .pcard .name {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .pcard .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pcard p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .d-gray {
+    background: var(--muted);
+  }
+  .d-gold {
+    background: var(--gold);
+  }
+  .d-green {
+    background: var(--green);
+  }
+</style>

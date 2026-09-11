@@ -1,0 +1,31 @@
+---
+// Temporary work-in-progress notice. Remove once the site is ready.
+---
+
+<div class="uc-banner" role="status">
+  <span class="uc-icon" aria-hidden="true">🚧</span>
+  Under construction — this site is a work in progress.
+</div>
+
+<style>
+  .uc-banner {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Pull out of the centered .page column to span the full viewport width. */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    color: var(--gold);
+    background: var(--surface);
+    border-bottom: 1px solid #5a4620;
+    padding: 0.55rem 1rem;
+  }
+  .uc-icon {
+    margin-right: 0.4rem;
+  }
+</style>
