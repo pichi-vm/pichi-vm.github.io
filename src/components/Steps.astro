@@ -1,0 +1,17 @@
+---
+// Renders a 3-up row of numbered steps. Shared by HowItWorks and BuildOnTrust.
+// Each step: { n, heading, body }. Styling lives in the global stylesheet.
+const { steps } = Astro.props;
+---
+
+<div class="steps">
+  {
+    steps.map((step) => (
+      <div class="step">
+        <div class="n">{step.n}</div>
+        <h3>{step.heading}</h3>
+        <p>{step.body}</p>
+      </div>
+    ))
+  }
+</div>

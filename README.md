@@ -16,19 +16,40 @@ npm run build   # produce the static site in dist/
 npm run preview # serve the built dist/ locally
 ```
 
+## Editing content
+
+**You almost never need to touch the components or CSS to change the words.**
+The copy lives in two places:
+
+- **`src/content/landing.yaml`** — every repeated item: the hero headline and
+  CTA buttons, the problem cards, the "Why pichi" props, the terminal lines,
+  the how-it-works / trust steps, the audience lists, and the comparison table
+  (columns + rows). Edit the text in place. Comments in the file explain each
+  field (e.g. `dot: gray|gold|green`, `style: primary|ghost`).
+- **`src/content/prose/*.md`** — the standalone paragraphs that head a section
+  (hero sub-line, section intros, captions, the comparison caveat). These are
+  Markdown, so you can add `**bold**` or `[links](…)` and they render as HTML.
+
+Add a comparison row by appending to `comparison.rows`; add a card by appending
+to `problem.cards`; the components loop over the data, so the page updates with
+no code changes.
+
 ## Structure
 
 ```
 public/            static assets served at the site root (e.g. /pichi-logo.png)
 src/
+  content/
+    landing.yaml   ← edit page copy here (cards, table, steps, CTAs, terminal)
+    prose/*.md     ← edit section paragraphs here (Markdown)
   layouts/         Layout.astro — <head> meta + global/shared CSS
-  components/      one .astro component per page section (scoped styles)
+  components/      one .astro component per section; render from content/
   pages/           index.astro — composes the components into the landing page
 .github/workflows/ deploy.yml — build + publish to GitHub Pages
 ```
 
-To edit page content, find the relevant component under `src/components/`
-(e.g. `Hero.astro`, `Comparison.astro`) and edit its markup.
+The components under `src/components/` are presentation only — reach for them
+when you need to change *layout or styling*, not wording.
 
 ## Deploy
 

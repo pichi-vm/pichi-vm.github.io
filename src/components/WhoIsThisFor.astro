@@ -1,26 +1,25 @@
 ---
 // ── Who is this for ───────────────────────────────────
+import data from "../content/landing.yaml";
+
+const { who } = data;
 ---
 
 <section class="section">
-  <div class="section-title">Who is this for</div>
+  <div class="section-title">{who.title}</div>
   <div class="who">
-    <div class="whocol">
-      <h3>For developers who…</h3>
-      <ul>
-        <li>want the container workflow they already know</li>
-        <li>need stronger isolation than a shared-kernel container</li>
-        <li>want one image that runs the same everywhere</li>
-      </ul>
-    </div>
-    <div class="whocol">
-      <h3>For security &amp; platform teams who…</h3>
-      <ul>
-        <li>need a small, auditable trusted base at boot</li>
-        <li>want reproducible builds and a measured launch</li>
-        <li>are building toward hardware-attested confidential computing</li>
-      </ul>
-    </div>
+    {
+      who.columns.map((col) => (
+        <div class="whocol">
+          <h3>{col.heading}</h3>
+          <ul>
+            {col.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </div>
 </section>
 

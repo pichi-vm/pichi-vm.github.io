@@ -1,5 +1,10 @@
 ---
 // ── Hero ──────────────────────────────────────────────
+import data from "../content/landing.yaml";
+import { Content as HeroSub } from "../content/prose/hero-sub.md";
+import Ctas from "./Ctas.astro";
+
+const { hero, ctas } = data;
 ---
 
 <header class="hero">
@@ -8,18 +13,12 @@
     src="/pichi-logo.png"
     width="112"
     height="112"
-    alt="pichi-vm mascot — a curled-up armadillo line drawing"
+    alt={hero.logoAlt}
   />
-  <div class="eyebrow">pichi-vm</div>
-  <h1>The container workflow,<br />for real virtual machines.</h1>
-  <p class="sub">
-    One portable image that boots identically on your laptop, in the cloud, or on bare metal, with
-    real isolation and a small, fast boot chain with a deterministic launch measurement.
-  </p>
-  <div class="cta-row">
-    <a class="btn btn-primary" href="docs.html">Explore the docs</a>
-    <a class="btn btn-ghost" href="wasm-demo/index.html">Try the live demo</a>
-  </div>
+  <div class="eyebrow">{hero.eyebrow}</div>
+  <h1 set:html={hero.title} />
+  <div class="sub"><HeroSub /></div>
+  <Ctas ctas={ctas} />
 </header>
 
 <style>

@@ -1,0 +1,146 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Landing page content. Edit the words here — the components render from this.
+#
+#   • This file holds every REPEATED item: cards, props, steps, table rows,
+#     list items, CTA buttons, terminal lines. Edit their text freely.
+#   • Longer standalone paragraphs (section intros, captions) live as Markdown
+#     in src/content/prose/*.md so you can use **bold** / [links](…) there.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Call-to-action buttons, reused in the hero and footer.
+# style: "primary" (filled) or "ghost" (outline).
+ctas:
+  - label: Explore the docs
+    href: docs.html
+    style: primary
+  - label: Try the live demo
+    href: wasm-demo/index.html
+    style: ghost
+
+hero:
+  logoAlt: pichi-vm mascot — a curled-up armadillo line drawing
+  eyebrow: pichi-vm
+  # <br> marks the line break in the headline.
+  title: The container workflow,<br>for real virtual machines.
+
+problem:
+  heading: "Containers vs. VMs: pick your compromise"
+  # dot: gray | gold | green (the colored bullet next to each name)
+  cards:
+    - dot: gray
+      name: Containers
+      body: Fast and portable, but every container shares the host kernel. One kernel bug can cross the boundary.
+    - dot: gold
+      name: Traditional VMs
+      body: Strong isolation, but heavy — and they boot through large UEFI firmware, a big, hard-to-reproduce trusted base.
+    - dot: green
+      name: pichi
+      win: true # highlights this card
+      body: Container-style workflow, true VM isolation, and a tiny boot chain with a deterministic launch measurement.
+
+why:
+  title: Why pichi
+  props:
+    - heading: Run anywhere
+      body: One image runs on Linux, macOS, and Windows hosts, and on bare metal — no rebuild.
+    - heading: Real isolation
+      body: Your own kernel and memory, not a slice of the host's.
+    - heading: Verifiable boot
+      body: A small boot chain with a deterministic launch measurement, so you can check what actually booted.
+      # Optional muted footnote under the body.
+      note: Hardware attestation targets confidential-computing platforms (AMD SEV-SNP, with Intel TDX and Arm CCA drafted) — on the roadmap, not yet shipping.
+    - heading: Container-like workflow
+      body: Pull, push, run, and cache over any OCI registry — the workflow you already know.
+
+tryIt:
+  title: Try it
+  # Each line: kind "cmd" (a $ prompt + command), "out" (output), or "gap"
+  # (blank line). Quote the text so commas aren't read as YAML separators.
+  terminal:
+    - { kind: cmd, text: "pichi pull ghcr.io/acme/app:1.0" }
+    - { kind: out, text: "Fetched app:1.0 (portable machine image)" }
+    - { kind: gap }
+    - { kind: cmd, text: "pichi run app:1.0" }
+    - { kind: out, text: "Booting VM… kernel measured, handing off." }
+
+howItWorks:
+  heading: How it works
+  steps:
+    - n: 01 · BUILD
+      heading: Build
+      body: Package your kernel and root filesystem into one portable image.
+    - n: 02 · DISTRIBUTE
+      heading: Distribute
+      body: Push it to any OCI registry, the same place your container images live.
+    - n: 03 · RUN
+      heading: Run
+      body: Pull and boot it anywhere — laptop, cloud, or bare metal.
+  fanout:
+    image: one portable image
+    targets:
+      - your laptop
+      - the cloud
+      - bare metal
+
+trust:
+  heading: Build on trust, extend it forward
+  steps:
+    - n: START
+      heading: From a trusted base
+      body: Begin with a base image whose integrity you already vouch for — a shared root others build from.
+    - n: EXTEND
+      heading: Add your own layers
+      body: Stack your changes on top. Each layer is a read-only, integrity-protected image bound into the chain below it.
+    - n: VERIFY
+      heading: One anchor checks it all
+      body: A single trusted root validates the entire stack. Tamper with any layer and the check fails — no trust is lost as you extend.
+
+who:
+  title: Who is this for
+  columns:
+    - heading: For developers who…
+      items:
+        - want the container workflow they already know
+        - need stronger isolation than a shared-kernel container
+        - want one image that runs the same everywhere
+    - heading: For security & platform teams who…
+      items:
+        - need a small, auditable trusted base at boot
+        - want reproducible builds and a measured launch
+        - are building toward hardware-attested confidential computing
+
+comparison:
+  title: How it compares
+  # Column headers. `pichi: true` tints the winning column.
+  columns:
+    - { key: containers, label: Containers }
+    - { key: vms, label: Traditional VMs }
+    - { key: pichi, label: pichi, pichi: true }
+  rows:
+    - label: Isolation
+      containers: Shared host kernel
+      vms: Full VM boundary
+      pichi: Full VM boundary
+    - label: Portability
+      containers: One image, many hosts
+      vms: Tied to hypervisor & format
+      pichi: One image, laptop → cloud → bare metal
+    - label: Boot trusted base
+      containers: Host's — inherited
+      vms: Large UEFI firmware
+      pichi: Tiny boot stub, no large UEFI firmware
+    - label: Attestation
+      containers: None at boot
+      vms: Hard — firmware varies
+      pichi: Deterministic launch measurement; hardware attestation on the roadmap*
+    - label: Workflow
+      containers: pull / push / run
+      vms: Bespoke tooling
+      pichi: pull / push / run over OCI
+
+footer:
+  meta:
+    - { label: GitHub, href: https://github.com/pichi-vm }
+    - { label: Docs & demos, href: docs.html }
+  license: Apache-2.0 licensed
+  badge: open source · early / experimental

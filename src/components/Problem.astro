@@ -1,38 +1,34 @@
 ---
 // ── The problem ───────────────────────────────────────
+import data from "../content/landing.yaml";
+import { Content as Intro } from "../content/prose/problem-intro.md";
+
+const { problem } = data;
 ---
 
 <section class="section">
-  <h2 class="h">Containers vs. VMs: pick your compromise</h2>
-  <p class="section-desc" style="text-align:center;margin-bottom:1.75rem">
-    Two ways to run software in isolation today — each asks you to give something up.
-  </p>
+  <h2 class="h">{problem.heading}</h2>
+  <div class="section-desc problem-intro"><Intro /></div>
   <div class="trio">
-    <div class="pcard">
-      <div class="name"><span class="dot d-gray"></span>Containers</div>
-      <p>
-        Fast and portable, but every container shares the host kernel. One kernel bug can cross the
-        boundary.
-      </p>
-    </div>
-    <div class="pcard">
-      <div class="name"><span class="dot d-gold"></span>Traditional VMs</div>
-      <p>
-        Strong isolation, but heavy — and they boot through large UEFI firmware, a big,
-        hard-to-reproduce trusted base.
-      </p>
-    </div>
-    <div class="pcard win">
-      <div class="name"><span class="dot d-green"></span>pichi</div>
-      <p>
-        Container-style workflow, true VM isolation, and a tiny boot chain with a deterministic
-        launch measurement.
-      </p>
-    </div>
+    {
+      problem.cards.map((card) => (
+        <div class:list={["pcard", { win: card.win }]}>
+          <div class="name">
+            <span class={`dot d-${card.dot}`} />
+            {card.name}
+          </div>
+          <p>{card.body}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style>
+  .problem-intro {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
   .trio {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

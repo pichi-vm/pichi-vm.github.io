@@ -1,17 +1,24 @@
 ---
 // ── Footer ────────────────────────────────────────────
+import data from "../content/landing.yaml";
+import Ctas from "./Ctas.astro";
+
+const { footer, ctas } = data;
 ---
 
 <footer class="foot">
-  <div class="cta-row">
-    <a class="btn btn-primary" href="docs.html">Explore the docs</a>
-    <a class="btn btn-ghost" href="wasm-demo/index.html">Try the live demo</a>
-  </div>
+  <Ctas ctas={ctas} />
   <p class="foot-meta">
-    <a href="https://github.com/pichi-vm">GitHub</a> ·
-    <a href="docs.html">Docs &amp; demos</a> · Apache-2.0 licensed
+    {
+      footer.meta.map((link) => (
+        <Fragment>
+          <a href={link.href}>{link.label}</a> ·{" "}
+        </Fragment>
+      ))
+    }
+    {footer.license}
   </p>
-  <span class="badge">open source · early / experimental</span>
+  <span class="badge">{footer.badge}</span>
 </footer>
 
 <style>

@@ -1,58 +1,41 @@
 ---
 // ── Comparison ────────────────────────────────────────
+import data from "../content/landing.yaml";
+import { Content as Caveat } from "../content/prose/comparison-caveat.md";
+
+const { comparison } = data;
+const { columns, rows } = comparison;
 ---
 
 <section class="section">
-  <div class="section-title">How it compares</div>
+  <div class="section-title">{comparison.title}</div>
   <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
           <th></th>
-          <th>Containers</th>
-          <th>Traditional VMs</th>
-          <th class="pichi">pichi</th>
+          {
+            columns.map((col) => (
+              <th class:list={[{ pichi: col.pichi }]}>{col.label}</th>
+            ))
+          }
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>Isolation</th>
-          <td>Shared host kernel</td>
-          <td>Full VM boundary</td>
-          <td class="pichi">Full VM boundary</td>
-        </tr>
-        <tr>
-          <th>Portability</th>
-          <td>One image, many hosts</td>
-          <td>Tied to hypervisor &amp; format</td>
-          <td class="pichi">One image, laptop → cloud → bare metal</td>
-        </tr>
-        <tr>
-          <th>Boot trusted base</th>
-          <td>Host's — inherited</td>
-          <td>Large UEFI firmware</td>
-          <td class="pichi">Tiny boot stub, no large UEFI firmware</td>
-        </tr>
-        <tr>
-          <th>Attestation</th>
-          <td>None at boot</td>
-          <td>Hard — firmware varies</td>
-          <td class="pichi">Deterministic launch measurement; hardware attestation on the roadmap*</td>
-        </tr>
-        <tr>
-          <th>Workflow</th>
-          <td>pull / push / run</td>
-          <td>Bespoke tooling</td>
-          <td class="pichi">pull / push / run over OCI</td>
-        </tr>
+        {
+          rows.map((row) => (
+            <tr>
+              <th>{row.label}</th>
+              {columns.map((col) => (
+                <td class:list={[{ pichi: col.pichi }]}>{row[col.key]}</td>
+              ))}
+            </tr>
+          ))
+        }
       </tbody>
     </table>
   </div>
-  <p class="caveat">
-    These are real virtual machines — heavier than a container, far lighter than a traditional VM.
-    <br />*Hardware attestation targets confidential-computing platforms (AMD SEV-SNP, with Intel
-    TDX and Arm CCA drafted) and is planned, not yet shipping.
-  </p>
+  <div class="caveat"><Caveat /></div>
 </section>
 
 <style>
@@ -102,5 +85,8 @@
     color: var(--muted);
     margin-top: 0.9rem;
     text-align: center;
+  }
+  .caveat :global(p) {
+    margin: 0;
   }
 </style>

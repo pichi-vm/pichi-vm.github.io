@@ -1,32 +1,24 @@
 ---
 // ── Why pichi ─────────────────────────────────────────
+import data from "../content/landing.yaml";
+
+const { why } = data;
 ---
 
 <section class="section">
-  <div class="section-title">Why pichi</div>
+  <div class="section-title">{why.title}</div>
   <div class="props">
-    <div class="prop">
-      <h3>Run anywhere</h3>
-      <p>One image runs on Linux, macOS, and Windows hosts, and on bare metal — no rebuild.</p>
-    </div>
-    <div class="prop">
-      <h3>Real isolation</h3>
-      <p>Your own kernel and memory, not a slice of the host's.</p>
-    </div>
-    <div class="prop">
-      <h3>Verifiable boot</h3>
-      <p>
-        A small boot chain with a deterministic launch measurement, so you can check what actually
-        booted.<span class="note"
-          >Hardware attestation targets confidential-computing platforms (AMD SEV-SNP, with Intel
-          TDX and Arm CCA drafted) — on the roadmap, not yet shipping.</span
-        >
-      </p>
-    </div>
-    <div class="prop">
-      <h3>Container-like workflow</h3>
-      <p>Pull, push, run, and cache over any OCI registry — the workflow you already know.</p>
-    </div>
+    {
+      why.props.map((prop) => (
+        <div class="prop">
+          <h3>{prop.heading}</h3>
+          <p>
+            {prop.body}
+            {prop.note && <span class="note">{prop.note}</span>}
+          </p>
+        </div>
+      ))
+    }
   </div>
 </section>
 
