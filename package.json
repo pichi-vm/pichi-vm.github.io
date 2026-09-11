@@ -13,7 +13,7 @@
     "format:check": "prettier --check ."
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0 <25"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

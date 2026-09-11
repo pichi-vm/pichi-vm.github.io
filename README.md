@@ -7,7 +7,8 @@ Landing page for [pichi-vm](https://github.com/pichi-vm), built with [Astro](htt
 
 ## Develop
 
-Requires Node.js 20+ (pinned in `.nvmrc`; run `nvm use` to match).
+Requires Node.js 24 (pinned in `.nvmrc`; run `nvm use` to match). Astro 7
+needs ≥22.12.
 
 ```sh
 npm install       # install dependencies
