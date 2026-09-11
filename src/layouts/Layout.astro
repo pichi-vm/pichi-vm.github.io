@@ -3,15 +3,26 @@
 // SPDX-License-Identifier: Apache-2.0
 import "../styles/global.css";
 
-const title = "pichi-vm — The container workflow, for real virtual machines";
-const description =
-  "pichi-vm brings the container workflow to full virtual machines: one portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement.";
-const socialDescription =
-  "One portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement.";
+// Per-page <head> metadata. Defaults describe the site as a whole so a simple
+// page can render <Layout> with no props; pages that want their own title /
+// social card pass these in. socialDescription defaults to `description`.
+interface Props {
+  title?: string;
+  description?: string;
+  socialDescription?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "pichi-vm — The container workflow, for real virtual machines",
+  description = "pichi-vm brings the container workflow to full virtual machines: one portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement.",
+  socialDescription = description,
+  ogImage = "/pichi-logo.png",
+} = Astro.props;
 
 // Absolute URLs for canonical + social tags, derived from `site` in astro.config.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL("/pichi-logo.png", Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -28,12 +39,12 @@ const ogImage = new URL("/pichi-logo.png", Astro.site).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={socialDescription} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageUrl} />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={socialDescription} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body>
     <div class="page">

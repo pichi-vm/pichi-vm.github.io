@@ -1,20 +1,24 @@
 ---
-// ── Try it ────────────────────────────────────────────
-import { landing } from "../content/schema";
-import { Content as Caption } from "../content/prose/try-it-caption.md";
+// ── Terminal: title + a mock terminal window + caption slot ──
+// Caption comes in via the "caption" slot so the page owns the wording.
+import type { TerminalContent } from "../content/schema";
 
-const { tryIt } = landing;
+interface Props {
+  content: TerminalContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="section">
-  <div class="section-title">{tryIt.title}</div>
+  <div class="section-title">{content.title}</div>
   <div class="term">
     <div class="term-bar" aria-hidden="true">
       <span></span>
       <span></span>
       <span></span>
     </div>
-    <pre>{tryIt.terminal.map((line, i) => (
+    <pre>{content.terminal.map((line, i) => (
       <Fragment>
         {i > 0 && "\n"}
         {line.kind === "cmd" && (<Fragment><span class="p">$</span> <span class="c">{line.text}</span></Fragment>)}
@@ -24,7 +28,7 @@ const { tryIt } = landing;
     ))}</pre>
   </div>
   <div class="illus">
-    <Caption />
+    <slot name="caption" />
   </div>
 </section>
 

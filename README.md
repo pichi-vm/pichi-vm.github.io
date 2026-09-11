@@ -56,21 +56,26 @@ src/
   content/
     landing.yaml   ← edit page copy here (cards, table, steps, CTAs, terminal)
     prose/*.md     ← edit section paragraphs here (Markdown)
-    schema.ts      validates landing.yaml + exports the typed `landing` object
+    schema.ts      per-section schemas + the composed, typed `landing` object
   styles/
     global.css     design tokens (:root), reset, shared section/button styles,
                    and the .grid / .grid-2 / .grid-3 responsive utilities
-  layouts/         Layout.astro — <head> meta (title, canonical, social) + shell
-  components/      one .astro component per section; render from content/
-  pages/           index.astro composes the sections; 404.astro is the not-found
+  layouts/         Layout.astro — <head> meta as props (title, description, …) + shell
+  components/      layout-named sections (CardGrid, Terminal, …); content in via a `content` prop + slots
+  pages/           index.astro maps content onto the sections; 404.astro is the not-found
 .github/workflows/ ci.yml (PR checks) + deploy.yml (publish to GitHub Pages)
 ```
 
 The components under `src/components/` are presentation only — reach for them
-when you need to change _layout or styling_, not wording. For a multi-column
-section, put the cells in a `<div class="grid grid-2">` (or `grid-3`); the
-mobile breakpoint that collapses them to one column lives in `global.css`, so
-you never touch a shared media query.
+when you need to change _layout or styling_, not wording. They're named for what
+they render (`CardGrid`, `FeatureGrid`, `Terminal`, `ComparisonTable`, …) and
+take their content as input (a `content` prop for data, a named `<slot>` for
+prose) rather than reading the YAML directly, so the same section can be reused
+on another page with different content; `index.astro` is where each content
+slice is mapped onto a layout. For a multi-column
+section, put the cells in a `<div class="grid grid-2">` (or `grid-3`); the mobile
+breakpoint that collapses them to one column lives in `global.css`, so you never
+touch a shared media query.
 
 ## Deploy
 

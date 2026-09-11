@@ -1,14 +1,18 @@
 ---
-// ── Why pichi ─────────────────────────────────────────
-import { landing } from "../content/schema";
+// ── Feature grid: title + a 2-up grid of heading/body/(note) cards ──
+import type { FeatureGridContent } from "../content/schema";
 
-const { why } = landing;
+interface Props {
+  content: FeatureGridContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="section">
-  <div class="section-title">{why.title}</div>
+  <div class="section-title">{content.title}</div>
   <div class="grid grid-2">
-    {why.props.map((prop) => (
+    {content.props.map((prop) => (
       <div class="prop">
         <h3>{prop.heading}</h3>
         <p>

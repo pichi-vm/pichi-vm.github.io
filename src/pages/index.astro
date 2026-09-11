@@ -1,28 +1,62 @@
 ---
 // SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
 // SPDX-License-Identifier: Apache-2.0
+//
+// The landing page: the one place that reads content and wires it into the
+// section components. Data slices come from landing.yaml (via the schema);
+// prose paragraphs come from content/prose/*.md and are passed into each
+// section's named slot. A new page follows this same shape — import the
+// sections it reuses, hand them their data + prose.
 import Layout from "../layouts/Layout.astro";
+import { landing } from "../content/schema";
+
+// Components are named for the layout they render; this page maps each content
+// slice onto one. e.g. the "problem" content renders as a CardGrid, "why" as a
+// FeatureGrid — a different page could render its own content through the same
+// components.
 import UnderConstructionBanner from "../components/UnderConstructionBanner.astro";
 import Hero from "../components/Hero.astro";
-import Problem from "../components/Problem.astro";
-import WhyPichi from "../components/WhyPichi.astro";
-import TryIt from "../components/TryIt.astro";
-import HowItWorks from "../components/HowItWorks.astro";
-import BuildOnTrust from "../components/BuildOnTrust.astro";
-import WhoIsThisFor from "../components/WhoIsThisFor.astro";
-import Comparison from "../components/Comparison.astro";
+import CardGrid from "../components/CardGrid.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import Terminal from "../components/Terminal.astro";
+import StepsFanout from "../components/StepsFanout.astro";
+import StepsCaption from "../components/StepsCaption.astro";
+import ColumnLists from "../components/ColumnLists.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
 import Footer from "../components/Footer.astro";
+
+// Section prose (Markdown → HTML). Each renders into a component's named slot.
+import { Content as HeroSub } from "../content/prose/hero-sub.md";
+import { Content as ProblemIntro } from "../content/prose/problem-intro.md";
+import { Content as HowItWorksIntro } from "../content/prose/how-it-works-intro.md";
+import { Content as TrustIntro } from "../content/prose/trust-intro.md";
+import { Content as TrustCaption } from "../content/prose/trust-caption.md";
+import { Content as TryItCaption } from "../content/prose/try-it-caption.md";
+import { Content as ComparisonCaveat } from "../content/prose/comparison-caveat.md";
 ---
 
 <Layout>
   <UnderConstructionBanner />
-  <Hero />
-  <Problem />
-  <WhyPichi />
-  <TryIt />
-  <HowItWorks />
-  <BuildOnTrust />
-  <WhoIsThisFor />
-  <Comparison />
-  <Footer />
+  <Hero hero={landing.hero} ctas={landing.ctas}>
+    <HeroSub slot="sub" />
+  </Hero>
+  <CardGrid content={landing.problem}>
+    <ProblemIntro slot="intro" />
+  </CardGrid>
+  <FeatureGrid content={landing.why} />
+  <Terminal content={landing.tryIt}>
+    <TryItCaption slot="caption" />
+  </Terminal>
+  <StepsFanout content={landing.howItWorks}>
+    <HowItWorksIntro slot="intro" />
+  </StepsFanout>
+  <StepsCaption content={landing.trust}>
+    <TrustIntro slot="intro" />
+    <TrustCaption slot="caption" />
+  </StepsCaption>
+  <ColumnLists content={landing.who} />
+  <ComparisonTable content={landing.comparison}>
+    <ComparisonCaveat slot="caveat" />
+  </ComparisonTable>
+  <Footer footer={landing.footer} ctas={landing.ctas} />
 </Layout>

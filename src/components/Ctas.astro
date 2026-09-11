@@ -1,10 +1,10 @@
 ---
 // Renders the row of call-to-action buttons. Shared by Hero and Footer.
 // Each cta: { label, href, style: "primary" | "ghost" }.
-import type { Landing } from "../content/schema";
+import type { CtaContent } from "../content/schema";
 
 interface Props {
-  ctas: Landing["ctas"];
+  ctas: CtaContent[];
 }
 
 const { ctas } = Astro.props;

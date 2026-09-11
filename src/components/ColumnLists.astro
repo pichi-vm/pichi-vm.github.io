@@ -1,14 +1,18 @@
 ---
-// ── Who is this for ───────────────────────────────────
-import { landing } from "../content/schema";
+// ── Column lists: title + a 2-up row of heading/bulleted-list columns ──
+import type { ColumnListsContent } from "../content/schema";
 
-const { who } = landing;
+interface Props {
+  content: ColumnListsContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="section">
-  <div class="section-title">{who.title}</div>
+  <div class="section-title">{content.title}</div>
   <div class="grid grid-2">
-    {who.columns.map((col) => (
+    {content.columns.map((col) => (
       <div class="whocol">
         <h3>{col.heading}</h3>
         <ul>

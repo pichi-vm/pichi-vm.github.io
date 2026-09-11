@@ -1,10 +1,10 @@
 ---
-// Renders a 3-up row of numbered steps. Shared by HowItWorks and BuildOnTrust.
+// Renders a 3-up row of numbered steps. Shared by StepsFanout and StepsCaption.
 // Each step: { n, heading, body }. Styling lives in the global stylesheet.
-import type { Landing } from "../content/schema";
+import type { StepContent } from "../content/schema";
 
 interface Props {
-  steps: Landing["howItWorks"]["steps"];
+  steps: StepContent[];
 }
 
 const { steps } = Astro.props;

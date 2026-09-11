@@ -1,18 +1,22 @@
 ---
-// ── The problem ───────────────────────────────────────
-import { landing } from "../content/schema";
-import { Content as Intro } from "../content/prose/problem-intro.md";
+// ── Card grid: heading + intro slot + a 3-up grid of dot/name/body cards ──
+// Prose intro comes in via the "intro" slot so the page owns the wording.
+import type { CardGridContent } from "../content/schema";
 
-const { problem } = landing;
+interface Props {
+  content: CardGridContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="section">
-  <h2 class="h">{problem.heading}</h2>
+  <h2 class="h">{content.heading}</h2>
   <div class="section-desc problem-intro">
-    <Intro />
+    <slot name="intro" />
   </div>
   <div class="grid grid-3">
-    {problem.cards.map((card) => (
+    {content.cards.map((card) => (
       <div class:list={["pcard", { win: card.win }]}>
         <div class="name">
           <span class={`dot d-${card.dot}`} />

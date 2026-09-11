@@ -1,14 +1,18 @@
 ---
-// ── Comparison ────────────────────────────────────────
-import { landing } from "../content/schema";
-import { Content as Caveat } from "../content/prose/comparison-caveat.md";
+// ── Comparison table: title + a per-column comparison table + caveat slot ──
+// Caveat comes in via the "caveat" slot so the page owns the wording.
+import type { ComparisonTableContent } from "../content/schema";
 
-const { comparison } = landing;
-const { columns, rows } = comparison;
+interface Props {
+  content: ComparisonTableContent;
+}
+
+const { content } = Astro.props;
+const { columns, rows } = content;
 ---
 
 <section class="section">
-  <div class="section-title">{comparison.title}</div>
+  <div class="section-title">{content.title}</div>
   <div class="tbl-wrap">
     <table>
       <thead>
@@ -32,7 +36,7 @@ const { columns, rows } = comparison;
     </table>
   </div>
   <div class="caveat">
-    <Caveat />
+    <slot name="caveat" />
   </div>
 </section>
 

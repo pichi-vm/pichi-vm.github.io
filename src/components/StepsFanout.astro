@@ -1,25 +1,29 @@
 ---
-// ── How it works ──────────────────────────────────────
-import { landing } from "../content/schema";
-import { Content as Intro } from "../content/prose/how-it-works-intro.md";
+// ── Steps + fanout: heading + intro slot + numbered steps + a fan-out diagram ──
+// Intro comes in via the "intro" slot so the page owns the wording.
+import type { StepsFanoutContent } from "../content/schema";
 import Steps from "./Steps.astro";
 
-const { howItWorks } = landing;
+interface Props {
+  content: StepsFanoutContent;
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="section">
-  <h2 class="h">{howItWorks.heading}</h2>
+  <h2 class="h">{content.heading}</h2>
   <div class="section-desc hiw-intro">
-    <Intro />
+    <slot name="intro" />
   </div>
-  <Steps steps={howItWorks.steps} />
+  <Steps steps={content.steps} />
   <div class="fanout">
-    <div class="fan-img">{howItWorks.fanout.image}</div>
+    <div class="fan-img">{content.fanout.image}</div>
     <div class="fan-arrows" aria-hidden="true">
       ↙ ↓ ↘
     </div>
     <div class="fan-targets">
-      {howItWorks.fanout.targets.map((t) => (
+      {content.fanout.targets.map((t) => (
         <span class="fan-t">{t}</span>
       ))}
     </div>

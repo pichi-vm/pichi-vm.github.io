@@ -1,10 +1,15 @@
 ---
 // ── Hero ──────────────────────────────────────────────
-import { landing } from "../content/schema";
-import { Content as HeroSub } from "../content/prose/hero-sub.md";
+// Sub-line comes in via the "sub" slot so the page owns the wording.
+import type { HeroContent, CtaContent } from "../content/schema";
 import Ctas from "./Ctas.astro";
 
-const { hero, ctas } = landing;
+interface Props {
+  hero: HeroContent;
+  ctas: CtaContent[];
+}
+
+const { hero, ctas } = Astro.props;
 ---
 
 <header class="hero">
@@ -18,7 +23,7 @@ const { hero, ctas } = landing;
   <div class="eyebrow">{hero.eyebrow}</div>
   <h1 set:html={hero.title} />
   <div class="sub">
-    <HeroSub />
+    <slot name="sub" />
   </div>
   <Ctas ctas={ctas} />
 </header>

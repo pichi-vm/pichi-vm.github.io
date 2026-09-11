@@ -1,9 +1,14 @@
 ---
 // ── Footer ────────────────────────────────────────────
-import { landing } from "../content/schema";
+import type { FooterContent, CtaContent } from "../content/schema";
 import Ctas from "./Ctas.astro";
 
-const { footer, ctas } = landing;
+interface Props {
+  footer: FooterContent;
+  ctas: CtaContent[];
+}
+
+const { footer, ctas } = Astro.props;
 ---
 
 <footer class="foot">
