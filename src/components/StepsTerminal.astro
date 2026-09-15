@@ -1,9 +1,9 @@
 ---
-// ── Steps + terminal: heading + intro slot + a two-column body pairing the
-// numbered steps (left) with the live terminal that runs them (right), then a
-// caption slot below. The steps and commands tell one story — Install / Pull /
-// Run beside `apt install` / `pichi pull` / `pichi run` — so they share a
-// section instead of repeating across two. Columns stack on mobile.
+// ── Steps + terminal: heading + intro slot + the numbered steps in a row, with
+// the live terminal that runs them full-width below, then a caption slot. The
+// steps and commands tell one story — Install / Pull / Run over `apt install` /
+// `pichi pull` / `pichi run` — so they share a section instead of repeating
+// across two. The steps row collapses to one column on mobile.
 import type { StepsTerminalContent } from "../content/schema";
 import Steps from "./Steps.astro";
 
@@ -19,7 +19,7 @@ const { content } = Astro.props;
   <div class="section-desc st-intro">
     <slot name="intro" />
   </div>
-  <div class="st-body grid grid-2">
+  <div class="st-body">
     <Steps steps={content.steps} />
     <div class="term">
       <div class="term-bar" aria-hidden="true">
@@ -47,20 +47,15 @@ const { content } = Astro.props;
     text-align: center;
     margin-bottom: 1.75rem;
   }
-  /* Steps and terminal side by side; the shared grid-2 breakpoint stacks them. */
-  .st-body {
-    align-items: center;
-  }
-  /* Inside the two-column layout the steps stack vertically, one per row. */
-  .st-body :global(.steps) {
-    grid-template-columns: 1fr;
-    margin-bottom: 0;
-  }
+  /* The steps keep their native 3-up row (Steps.astro's `grid grid-3`); the
+     terminal sits full-width beneath it with room to breathe. */
   .term {
     background: #0a0d12;
     border: 1px solid var(--border);
     border-radius: 10px;
     overflow: hidden;
+    max-width: 44rem;
+    margin: 0 auto;
   }
   .term-bar {
     display: flex;
