@@ -16,13 +16,10 @@ import { landing, prose } from "../content/schema";
 // components.
 import UnderConstructionBanner from "../components/UnderConstructionBanner.astro";
 import Hero from "../components/Hero.astro";
-import CardGrid from "../components/CardGrid.astro";
 import FeatureGrid from "../components/FeatureGrid.astro";
-import Terminal from "../components/Terminal.astro";
-import StepsFanout from "../components/StepsFanout.astro";
-import StepsCaption from "../components/StepsCaption.astro";
-import ColumnLists from "../components/ColumnLists.astro";
+import StepsTerminal from "../components/StepsTerminal.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
+import Ctas from "../components/Ctas.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -31,23 +28,27 @@ import Footer from "../components/Footer.astro";
   <Hero hero={landing.hero} ctas={landing.ctas}>
     <p slot="sub" set:html={prose.heroSub} />
   </Hero>
-  <CardGrid content={landing.problem}>
-    <p slot="intro" set:html={prose.problemIntro} />
-  </CardGrid>
-  <FeatureGrid content={landing.why} />
-  <Terminal content={landing.tryIt}>
-    <p slot="caption" set:html={prose.tryItCaption} />
-  </Terminal>
-  <StepsFanout content={landing.howItWorks}>
-    <p slot="intro" set:html={prose.howItWorksIntro} />
-  </StepsFanout>
-  <StepsCaption content={landing.trust}>
-    <p slot="intro" set:html={prose.trustIntro} />
-    <p slot="caption" set:html={prose.trustCaption} />
-  </StepsCaption>
-  <ColumnLists content={landing.who} />
   <ComparisonTable content={landing.comparison}>
+    <p slot="intro" set:html={prose.comparisonIntro} />
     <p slot="caveat" set:html={prose.comparisonCaveat} />
+    <a slot="link" href="/security#compare">
+      Compare the security boundary →
+    </a>
   </ComparisonTable>
+  <FeatureGrid content={landing.why} />
+  <StepsTerminal content={landing.howItWorks}>
+    <p slot="intro" set:html={prose.howItWorksIntro} />
+    <p slot="caption" set:html={prose.howItWorksCaption} />
+  </StepsTerminal>
+  <section class="section explore-security">
+    <Ctas ctas={landing.exploreSecurity} />
+  </section>
   <Footer footer={landing.footer} ctas={landing.ctas} />
 </Layout>
+
+<style>
+  /* Center the single "trust model" link that bridges to the security page. */
+  .explore-security :global(.cta-row) {
+    justify-content: center;
+  }
+</style>

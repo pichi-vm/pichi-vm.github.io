@@ -1,6 +1,8 @@
 ---
-// ── Comparison table: title + a per-column comparison table + caveat slot ──
-// Caveat comes in via the "caveat" slot so the page owns the wording.
+// ── Comparison table: heading + intro slot + a per-column comparison, where
+// each column header is the option's card (dot + name + one-line verdict) and
+// the rows are the dimensions compared. Intro and caveat come in via named
+// slots so the page owns the wording.
 import type { ComparisonTableContent } from "../content/schema";
 
 interface Props {
@@ -9,26 +11,50 @@ interface Props {
 
 const { content } = Astro.props;
 const { columns, rows } = content;
+
+// A cross-link to the other page's table renders as a sub-row under the first
+// dimension, in the winning column. Only drawn when the page fills the slot.
+const hasLink = Astro.slots.has("link");
 ---
 
-<section class="section">
-  <div class="section-title">{content.title}</div>
+<section class="section" id="compare">
+  <h2 class="h">{content.heading}</h2>
+  <div class="section-desc cmp-intro">
+    <slot name="intro" />
+  </div>
   <div class="tbl-wrap">
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th class="corner"></th>
           {columns.map((col) => (
-            <th class:list={[{ pichi: col.pichi }]}>{col.label}</th>
+            <th class:list={["opt", { win: col.win }]}>
+              <span class="opt-name">
+                <span class={`dot d-${col.dot}`} />
+                {col.name}
+              </span>
+              <span class="opt-verdict">{col.verdict}</span>
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           <tr>
             <th>{row.label}</th>
             {columns.map((col) => (
-              <td class:list={[{ pichi: col.pichi }]}>{row[col.key]}</td>
+              <td
+                class:list={[
+                  { win: col.win, good: row.good?.includes(col.key) },
+                ]}
+              >
+                {row[col.key]}
+                {hasLink && i === 0 && col.win && (
+                  <span class="cmp-link">
+                    <slot name="link" />
+                  </span>
+                )}
+              </td>
             ))}
           </tr>
         ))}
@@ -41,6 +67,10 @@ const { columns, rows } = content;
 </section>
 
 <style>
+  .cmp-intro {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
   .tbl-wrap {
     overflow-x: auto;
     border: 1px solid var(--border);
@@ -57,26 +87,77 @@ const { columns, rows } = content;
     text-align: left;
     padding: 0.85rem 1rem;
     border-bottom: 1px solid var(--border);
-    vertical-align: top;
+    vertical-align: middle;
   }
-  thead th {
+  /* Column headers are the option cards: name on top, verdict beneath. */
+  thead th.opt {
     background: var(--surface);
     color: #fff;
-    font-size: 0.8rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    /* Even column widths so no option's card dominates. */
+    width: calc((100% - 9rem) / 3);
   }
-  thead th.pichi {
+  thead th.corner {
+    width: 9rem;
+    background: var(--surface);
+  }
+  .opt-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .opt-verdict {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .d-gray {
+    background: var(--muted);
+  }
+  .d-gold {
+    background: var(--gold);
+  }
+  .d-green {
+    background: var(--green);
+  }
+  /* Winning column: green name + tinted header and cells. */
+  thead th.opt.win .opt-name {
     color: var(--green);
+  }
+  thead th.opt.win {
+    border-bottom: 1px solid #2c5a2e;
+  }
+  tbody tr {
+    transition: background 0.15s ease;
+  }
+  tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
   }
   tbody th {
     font-weight: 600;
     color: var(--fg);
     white-space: nowrap;
   }
-  td.pichi {
+  td.win {
     color: #fff;
     background: linear-gradient(180deg, rgba(63, 185, 80, 0.05), transparent);
+  }
+  /* The strong cell(s) on a row: a solid green tint so wins scan at a glance.
+     Placed after .win so a pichi cell that is both reads as `good`. */
+  td.good {
+    color: #fff;
+    background: rgba(63, 185, 80, 0.14);
   }
   tbody tr:last-child th,
   tbody tr:last-child td {
@@ -90,5 +171,19 @@ const { columns, rows } = content;
   }
   .caveat :global(p) {
     margin: 0;
+  }
+  /* The cross-link stacks on its own line under the first cell's text. */
+  .cmp-link {
+    display: block;
+    margin-top: 0.5rem;
+  }
+  .cmp-link :global(a) {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .cmp-link :global(a:hover) {
+    text-decoration: underline;
   }
 </style>

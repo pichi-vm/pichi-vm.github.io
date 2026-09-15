@@ -1,0 +1,91 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Security page content. Same shape and conventions as landing.yaml: this file
+# holds the structured/repeated items (CTA buttons, steps, list columns); the
+# standalone paragraphs live in security-prose.yaml, rendered with set:html.
+#
+# The trust/layers mechanism and the audience columns were split off the landing
+# page to keep its pitch tight — this page is where the deeper story lives.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Call-to-action buttons, reused in the hero and footer. This page points back
+# to the landing page and out to the source.
+# style: "primary" (filled) or "ghost" (outline).
+ctas:
+  - label: ← Back to overview
+    href: /
+    style: ghost
+  - label: View the source
+    href: https://github.com/pichi-vm
+    style: primary
+
+hero:
+  logoAlt: pichi-vm mascot — a curled-up armadillo line drawing
+  eyebrow: pichi-vm · security
+  # <br> marks the line break in the headline.
+  title: A small trusted base,<br>verifiable end to end.
+
+trust:
+  heading: Build on trust, extend it forward
+  steps:
+    - n: START
+      heading: From a trusted base
+      body: Begin with a base image whose integrity you already vouch for — a shared root others build from.
+    - n: EXTEND
+      heading: Add your own layers
+      body: Stack your changes on top. Each layer is a read-only, integrity-protected image bound into the chain below it.
+    - n: VERIFY
+      heading: One anchor checks it all
+      body: A single trusted root validates the entire stack. Tamper with any layer and the check fails — no trust is lost as you extend.
+
+comparison:
+  heading: Where the trust boundary really sits
+  # Same option cards as the landing table, focused on the security dimensions.
+  # dot: gray | gold | green. `win: true` tints the winning column.
+  columns:
+    - key: containers
+      name: Containers
+      dot: gray
+      verdict: Inherit the host's trusted base; no boot measurement of their own.
+    - key: vms
+      name: Traditional VMs
+      dot: gold
+      verdict: Own boundary, but a large UEFI firmware base that varies by host.
+    - key: pichi
+      name: pichi
+      dot: green
+      win: true
+      verdict: A tiny boot stub you can measure, with attestation on the roadmap.
+  rows:
+    # `good` marks the strong cell(s) per row — tinted green so wins are scannable.
+    - label: Boot trusted base
+      good: [pichi]
+      containers: Host's — inherited
+      vms: Large UEFI firmware
+      pichi: Tiny boot stub, no large UEFI firmware
+    - label: Attestation
+      good: [pichi]
+      containers: None at boot
+      vms: Hard — firmware varies
+      pichi: Deterministic launch measurement; hardware attestation on the roadmap*
+
+who:
+  title: Who is this for
+  columns:
+    - heading: For developers who…
+      items:
+        - want the container workflow they already know
+        - need stronger isolation than a shared-kernel container
+        - want one image that runs the same everywhere
+    - heading: For security & platform teams who…
+      items:
+        - need a small, auditable trusted base at boot
+        - want reproducible builds and a measured launch
+        - are building toward hardware-attested confidential computing
+
+footer:
+  meta:
+    - { label: GitHub, href: https://github.com/pichi-vm }
+    - { label: Overview, href: / }
+    - { label: Docs & demos, href: docs.html }
+  license: Apache-2.0 licensed
+  badge: open source · early / experimental

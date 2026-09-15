@@ -1,0 +1,29 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Standalone prose for the security page — same contract as prose.yaml: each
+# value is one paragraph, rendered as its own <p> via a named slot with
+# set:html (inline HTML like <br> is live; Markdown such as **bold** is not).
+# ─────────────────────────────────────────────────────────────────────────────
+
+heroSub: >-
+  A pichi image boots through a tiny, measured boot chain instead of large UEFI
+  firmware — a small trusted base you can actually audit. The same layers that
+  make distribution incremental are what make the whole stack verifiable.
+
+trustIntro: >-
+  A pichi image is built as layers, like a Docker image — and each layer
+  cryptographically binds to the one below it, so one trust anchor validates the
+  whole stack.
+
+trustCaption: >-
+  Shared bases mean common layers are fetched, signed, and scanned once — then
+  reused across every image that builds on them.
+
+comparisonIntro: >-
+  The same three options, on the dimensions security teams weigh: what you have
+  to trust at boot, and whether you can prove what ran.
+
+# <br> forces the line break; the * pairs with the "on the roadmap*" cell in the
+# Attestation row. (Bare * — unlike Markdown, set:html needs no escape.)
+comparisonCaveat: >-
+  *Hardware attestation targets confidential-computing platforms (AMD SEV-SNP,
+  with Intel TDX and Arm CCA drafted) and is planned, not yet shipping.

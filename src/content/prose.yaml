@@ -8,33 +8,20 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 heroSub: >-
-  One portable image that boots identically on your laptop, in the cloud, or on
-  bare metal, with real isolation and a small, fast boot chain with a
-  deterministic launch measurement.
+  Keep the container workflow you already know — pull, run, ship one image
+  anywhere — but run it as a real virtual machine, with its own kernel and a
+  true isolation boundary. Move back to VMs without giving anything up.
 
-problemIntro: >-
+comparisonIntro: >-
   Two ways to run software in isolation today — each asks you to give something
-  up.
+  up. pichi is the third: the row-by-row case is below.
 
 howItWorksIntro: >-
   Three steps, and the middle one is a registry you already have.
 
-trustIntro: >-
-  Images are built as layers, and each layer cryptographically binds to the one
-  below it — so one trust anchor validates the whole stack.
-
-trustCaption: >-
-  Shared bases mean common layers are fetched, signed, and scanned once — then
-  reused across every image that builds on them.
-
-tryItCaption: >-
+howItWorksCaption: >-
   Illustrative — the same pull / run flow you'd use for a container image.
 
-# <br> forces the line break; the * is the footnote asterisk that pairs with the
-# "on the roadmap*" cell in the comparison table. (Written as a bare * — unlike
-# Markdown, set:html needs no backslash escape.)
 comparisonCaveat: >-
   These are real virtual machines — heavier than a container, far lighter than a
-  traditional VM.<br>*Hardware attestation targets confidential-computing
-  platforms (AMD SEV-SNP, with Intel TDX and Arm CCA drafted) and is planned,
-  not yet shipping.
+  traditional VM.

@@ -1,0 +1,104 @@
+---
+// ── Steps + terminal: heading + intro slot + a two-column body pairing the
+// numbered steps (left) with the live terminal that runs them (right), then a
+// caption slot below. The steps and commands tell one story — Install / Pull /
+// Run beside `apt install` / `pichi pull` / `pichi run` — so they share a
+// section instead of repeating across two. Columns stack on mobile.
+import type { StepsTerminalContent } from "../content/schema";
+import Steps from "./Steps.astro";
+
+interface Props {
+  content: StepsTerminalContent;
+}
+
+const { content } = Astro.props;
+---
+
+<section class="section" id="try-it">
+  <h2 class="h">{content.heading}</h2>
+  <div class="section-desc st-intro">
+    <slot name="intro" />
+  </div>
+  <div class="st-body grid grid-2">
+    <Steps steps={content.steps} />
+    <div class="term">
+      <div class="term-bar" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <pre>{content.terminal.map((line, i) => (
+        <Fragment>
+          {i > 0 && "\n"}
+          {line.kind === "cmd" && (<Fragment><span class="p">$</span> <span class="c">{line.text}</span></Fragment>)}
+          {line.kind === "out" && <span class="o">{line.text}</span>}
+          {/* kind: "gap" renders as just the newline above */}
+        </Fragment>
+      ))}</pre>
+    </div>
+  </div>
+  <div class="illus">
+    <slot name="caption" />
+  </div>
+</section>
+
+<style>
+  .st-intro {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+  /* Steps and terminal side by side; the shared grid-2 breakpoint stacks them. */
+  .st-body {
+    align-items: center;
+  }
+  /* Inside the two-column layout the steps stack vertically, one per row. */
+  .st-body :global(.steps) {
+    grid-template-columns: 1fr;
+    margin-bottom: 0;
+  }
+  .term {
+    background: #0a0d12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .term-bar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .term-bar span {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .term pre {
+    margin: 0;
+    padding: 1.1rem 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .term .p {
+    color: var(--green);
+  }
+  .term .c {
+    color: #fff;
+  }
+  .term .o {
+    color: var(--muted);
+  }
+  .illus {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  .illus :global(p) {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+</style>

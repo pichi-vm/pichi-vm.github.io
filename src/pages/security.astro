@@ -1,0 +1,38 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+//
+// The security page: the trust/layers mechanism and audience columns, split off
+// the landing page to keep its pitch tight. Same composition shape as
+// index.astro — import the reused sections, hand each its data + prose. Content
+// comes from security.yaml + security-prose.yaml via the schema.
+import Layout from "../layouts/Layout.astro";
+import { security, securityProse } from "../content/schema";
+
+import UnderConstructionBanner from "../components/UnderConstructionBanner.astro";
+import Hero from "../components/Hero.astro";
+import StepsCaption from "../components/StepsCaption.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+import ColumnLists from "../components/ColumnLists.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="pichi-vm — Security & trust"
+  description="How pichi-vm builds a small, verifiable trusted base: images are layered like a Docker image, each layer cryptographically bound to the one below, so a single anchor validates the whole stack."
+>
+  <UnderConstructionBanner />
+  <Hero hero={security.hero} ctas={security.ctas}>
+    <p slot="sub" set:html={securityProse.heroSub} />
+  </Hero>
+  <StepsCaption content={security.trust}>
+    <p slot="intro" set:html={securityProse.trustIntro} />
+    <p slot="caption" set:html={securityProse.trustCaption} />
+  </StepsCaption>
+  <ComparisonTable content={security.comparison}>
+    <p slot="intro" set:html={securityProse.comparisonIntro} />
+    <p slot="caveat" set:html={securityProse.comparisonCaveat} />
+  </ComparisonTable>
+  <ColumnLists content={security.who} />
+  <Footer footer={security.footer} ctas={security.ctas} />
+</Layout>
