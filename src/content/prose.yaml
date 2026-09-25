@@ -8,19 +8,18 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 heroSub: >-
-  Keep the container workflow you already know — pull, run, ship one image
-  anywhere — but run it as a real virtual machine, with its own kernel and a
-  true isolation boundary. Move back to VMs without giving anything up.
+  An image management platform for building, sharing, distributing, staging and
+  running micro-VMs securely and confidentially at scale.
 
 comparisonIntro: >-
   Two ways to run software in isolation today — each asks you to give something
   up. pichi is the third: the row-by-row case is below.
 
 howItWorksIntro: >-
-  Three steps, and the middle one is a registry you already have.
+  Pull a Pichi image and boot it as a real VM in three commands.
 
 howItWorksCaption: >-
-  Illustrative — the same pull / run flow you'd use for a container image.
+  <a href="docs.html">walk through building and running this image →</a>
 
 comparisonCaveat: >-
   These are real virtual machines — heavier than a container, far lighter than a

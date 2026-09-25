@@ -59,12 +59,19 @@ export const problemSchema = z.object({
 
 export const whySchema = z.object({
   title: z.string(),
-  props: z.array(
+  // The props are split into labelled thematic bands (Performance / Workflow /
+  // …); each band renders an eyebrow over its own 3-up row of cards.
+  groups: z.array(
     z.object({
-      heading: z.string(),
-      body: z.string(),
-      // Optional muted footnote under the body.
-      note: z.string().optional(),
+      label: z.string(),
+      props: z.array(
+        z.object({
+          heading: z.string(),
+          body: z.string(),
+          // Optional muted footnote under the body.
+          note: z.string().optional(),
+        }),
+      ),
     }),
   ),
 });

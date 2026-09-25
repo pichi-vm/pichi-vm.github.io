@@ -1,5 +1,7 @@
 ---
-// ── Feature grid: title + a 2-up grid of heading/body/(note) cards ──
+// ── Feature grid: title + thematic bands, each an eyebrow label over a 3-up
+// row of heading/body/(note) cards. Cards lift and glow on hover, with an
+// accent bar sliding in from the left edge.
 import type { FeatureGridContent } from "../content/schema";
 
 interface Props {
@@ -10,49 +12,95 @@ const { content } = Astro.props;
 ---
 
 <section class="section">
-  <div class="section-title">{content.title}</div>
-  <div class="grid grid-2">
-    {content.props.map((prop) => (
-      <div class="prop">
-        <h3>{prop.heading}</h3>
-        <p>
-          {prop.body}
-          {prop.note && <span class="note">{prop.note}</span>}
-        </p>
+  <h2 class="h">{content.title}</h2>
+  {content.groups.map((group) => (
+    <div class="band">
+      <div class="band-label">{group.label}</div>
+      <div class="grid grid-3">
+        {group.props.map((prop) => (
+          <div class="prop">
+            <h3>{prop.heading}</h3>
+            <p>
+              {prop.body}
+              {prop.note && <span class="note">{prop.note}</span>}
+            </p>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
+    </div>
+  ))}
 </section>
 
 <style>
+  .band {
+    margin-top: 2rem;
+  }
+  .band:first-of-type {
+    margin-top: 1.5rem;
+  }
+  .band-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
   .prop {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;
-    padding: 1.35rem 1.5rem;
+    padding: 1.1rem 1.15rem;
+    overflow: hidden;
     transition:
-      transform 0.15s ease,
-      border-color 0.15s ease;
+      transform 0.16s ease,
+      border-color 0.16s ease,
+      box-shadow 0.16s ease;
+  }
+  /* Accent bar down the left edge, hidden until hover slides it in. */
+  .prop::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--green);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.16s ease;
   }
   .prop:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: var(--green);
+    box-shadow: 0 6px 22px -10px
+      color-mix(in srgb, var(--green) 55%, transparent);
+  }
+  .prop:hover::before {
+    transform: scaleY(1);
   }
   @media (prefers-reduced-motion: reduce) {
     .prop {
-      transition: border-color 0.15s ease;
+      transition: border-color 0.16s ease;
     }
     .prop:hover {
       transform: none;
+      box-shadow: none;
+    }
+    .prop::before,
+    .prop:hover::before {
+      transition: none;
     }
   }
   .prop h3 {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
     color: #fff;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
   }
   .prop p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
     color: var(--muted);
     margin: 0;
   }

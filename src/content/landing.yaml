@@ -10,8 +10,8 @@
 # Call-to-action buttons, reused in the hero and footer.
 # style: "primary" (filled) or "ghost" (outline).
 ctas:
-  - label: Explore the docs
-    href: docs.html
+  - label: View the source
+    href: https://github.com/pichi-vm
     style: primary
   - label: Try It
     href: "#try-it"
@@ -24,16 +24,34 @@ hero:
   title: The container workflow,<br>for real virtual machines.
 
 why:
-  title: Why pichi
-  props:
-    - heading: Run anywhere
-      body: One image runs on Linux, macOS, and Windows hosts, and on bare metal — no rebuild.
-    - heading: Real isolation
-      body: Your own kernel and memory, not a slice of the host's.
-    - heading: Container-like workflow
-      body: Pull, push, run, and cache over any OCI registry — the workflow you already know.
-    - heading: Incremental distribution
-      body: A pichi image is built in layers, like a Docker image. Push or pull only the layers that changed, so small updates stay small and shared bases are fetched once.
+  title: Why Pichi
+  # Props are grouped into thematic bands; each renders as an eyebrow-labelled
+  # 3-up row. Keep three cards per group so every row fills cleanly.
+  groups:
+    - label: Lightweight & fast
+      props:
+        - heading: Fast startup
+          body: A pichi VM boots through a tiny measured chain, not large UEFI firmware — the guest is running in tens of milliseconds.
+        - heading: Low memory overhead
+          body: No fat firmware, no emulated legacy hardware — the VM adds a few megabytes over the guest, not hundreds.
+        - heading: Run anywhere
+          body: One image runs on Linux, macOS, and Windows hosts.
+    - label: The workflow you know
+      props:
+        - heading: Container-like workflow
+          body: Pull, push, run, and cache over any OCI registry — the workflow you already know.
+        - heading: Incremental social distribution
+          body: A pichi image is built in layers, like a Docker image. Push or pull only the layers that changed — and build on anyone else's image, sharing common bases the way containers taught you to.
+        - heading: Immutable images
+          body: Every image is read-only and content-addressed. You don't patch a running VM — you rebuild and redeploy, so what you tested is exactly what runs. No drift, clean rollback.
+    - label: Real isolation & trust
+      props:
+        - heading: Real isolation
+          body: Your own kernel and your own memory, not a slice of the host's — a true VM boundary, not a shared-kernel namespace.
+        - heading: Explicit hardware, by contract
+          body: PMI makes the guest's hardware explicit — you declare the devices and resources you run on. Host and guest negotiate a resource contract at launch, no admin privilege required.
+        - heading: Confidential computing
+          body: The small, measurable trusted base is built for attestation — a path to running images confidentially on hardware you can prove, not just trust.
 
 howItWorks:
   heading: How it works
@@ -41,26 +59,28 @@ howItWorks:
   # Install → apt install, Pull → pichi pull, Run → pichi run.
   steps:
     - n: 01 · INSTALL
-      heading: Install
-      body: Grab the pichi binary. One tool, no daemon and no host reconfiguration.
+      heading: " "
+      body: Grab the pichi binary. One tool with no host reconfiguration.
     - n: 02 · PULL
-      heading: Pull
-      body: Pull a pichi image from any OCI registry — the same place your container images already live.
+      heading: " "
+      body: Pull a pichi image from any OCI registry.
     - n: 03 · RUN
-      heading: Run
-      body: Boot it anywhere — laptop, cloud, or bare metal — as a real VM, not a shared-kernel container.
+      heading: " "
+      body: Boot it anywhere as a real VM, with industry-leading startup times.
+
   # The live walkthrough shown beside the steps. Each line: kind "cmd" (a $
   # prompt + command), "out" (output), or "gap" (blank line). Quote the text so
   # commas aren't read as YAML separators.
   terminal:
     - { kind: cmd, text: "apt install pichi" }
-    - { kind: out, text: "Installing: pichi" }
+    - { kind: out, text: "Installing: pichi  (provisional — 0.x)" }
     - { kind: gap }
     - { kind: cmd, text: "pichi pull ghcr.io/acme/app:1.0" }
-    - { kind: out, text: "Fetched app:1.0 (pichi image)" }
+    - { kind: out, text: "Fetched app:1.0 — 3 of 5 layers reused" }
     - { kind: gap }
     - { kind: cmd, text: "pichi run app:1.0" }
-    - { kind: out, text: "Booting VM… kernel measured, handing off." }
+    - { kind: out, text: "Booting VM… boot chain measured, handing off." }
+    - { kind: out, text: "app ready — own kernel, own memory" }
 
 # One-button row linking to the security page. The trust/layers mechanism and
 # the audience columns live there now, so the landing page stays a tight pitch.
