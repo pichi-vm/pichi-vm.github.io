@@ -25,8 +25,8 @@ hero:
   # Compact command preview — the product, above the fold. The annotated
   # walkthrough (with output) lives in the "How it works" terminal below.
   commands:
-    - pichi pull ghcr.io/acme/app:1.0
-    - pichi run app:1.0
+    - pichi pull ghcr.io/acme/postgres-vm:16
+    - pichi run postgres-vm:16
   # Stat strip under the CTAs. Design targets, not measured results — kept
   # honest to match the "early / experimental" badge.
   stats:
@@ -86,12 +86,12 @@ howItWorks:
     - { kind: cmd, text: "apt install pichi" }
     - { kind: out, text: "Installing: pichi  (provisional — 0.x)" }
     - { kind: gap }
-    - { kind: cmd, text: "pichi pull ghcr.io/acme/app:1.0" }
-    - { kind: out, text: "Fetched app:1.0 — 3 of 5 layers reused" }
+    - { kind: cmd, text: "pichi pull ghcr.io/acme/postgres-vm:16" }
+    - { kind: out, text: "Fetched postgres-vm:16 — 3 of 5 layers reused" }
     - { kind: gap }
-    - { kind: cmd, text: "pichi run app:1.0" }
+    - { kind: cmd, text: "pichi run postgres-vm:16" }
     - { kind: out, text: "Booting VM… boot chain measured, handing off." }
-    - { kind: out, text: "app ready — own kernel, own memory" }
+    - { kind: out, text: "guest ready — own kernel, own memory" }
 
 # One-button row linking to the security page. The trust/layers mechanism and
 # the audience columns live there now, so the landing page stays a tight pitch.
