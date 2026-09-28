@@ -35,10 +35,10 @@ import Footer from "../components/Footer.astro";
     <p slot="intro" set:html={prose.howItWorksIntro} />
     <p slot="caption" set:html={prose.howItWorksCaption} />
   </StepsTerminal>
-  <FeatureGrid content={landing.why} />
   <ComparisonTable content={landing.comparison}>
     <p slot="intro" set:html={prose.comparisonIntro} />
     <p slot="caveat" set:html={prose.comparisonCaveat} />
   </ComparisonTable>
+  <FeatureGrid content={landing.why} />
   <Footer footer={landing.footer} ctas={footerCtas} />
 </Layout>
