@@ -42,6 +42,13 @@ export const heroSchema = z.object({
   eyebrow: z.string(),
   // Rendered with set:html so an inline <br> in the headline works.
   title: z.string(),
+  // Optional compact command preview shown in the hero — the product, above the
+  // fold. Each string is one `$` command line. The full annotated walkthrough
+  // lives in the "How it works" terminal below.
+  commands: z.array(z.string()).optional(),
+  // Optional stat strip under the CTAs. Framed as design targets, not measured
+  // results — matches the "early / experimental" badge. Each: { value, label }.
+  stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
 });
 
 export const problemSchema = z.object({

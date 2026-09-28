@@ -19,7 +19,7 @@ howItWorksIntro: >-
   Pull a Pichi image and boot it as a real VM in three commands.
 
 howItWorksCaption: >-
-  <a href="docs.html">walk through building and running this image →</a>
+  <a href="https://github.com/pichi-vm">explore the source and build it yourself →</a>
 
 comparisonCaveat: >-
   These are real virtual machines — heavier than a container, far lighter than a

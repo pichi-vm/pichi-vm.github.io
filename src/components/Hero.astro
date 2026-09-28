@@ -25,7 +25,32 @@ const { hero, ctas } = Astro.props;
   <div class="sub">
     <slot name="sub" />
   </div>
+  {hero.commands && (
+    <div class="hero-term" aria-label="Example commands">
+      <div class="hero-term-bar" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <pre>{hero.commands.map((cmd, i) => (
+        <Fragment>
+          {i > 0 && "\n"}
+          <span class="p">$</span> <span class="c">{cmd}</span>
+        </Fragment>
+      ))}</pre>
+    </div>
+  )}
   <Ctas ctas={ctas} />
+  {hero.stats && (
+    <dl class="hero-stats">
+      {hero.stats.map((stat) => (
+        <div class="stat">
+          <dt>{stat.value}</dt>
+          <dd>{stat.label}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
 </header>
 
 <style>
@@ -66,5 +91,76 @@ const { hero, ctas } = Astro.props;
     color: var(--fg);
     max-width: 38rem;
     margin: 0 auto 2rem;
+  }
+  /* Compact command preview — the product, above the fold. A trimmed cousin of
+     the full "How it works" terminal below (no output lines, tighter). */
+  .hero-term {
+    max-width: 30rem;
+    margin: 0 auto 2rem;
+    text-align: left;
+    background: #0a0d12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .hero-term-bar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-term-bar span {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .hero-term pre {
+    margin: 0;
+    padding: 0.9rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .hero-term .p {
+    color: var(--green);
+  }
+  .hero-term .c {
+    color: #fff;
+  }
+  /* Stat strip — framed as design targets in the labels, not measured results. */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 2.25rem auto 0;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+    max-width: 32rem;
+  }
+  .hero-stats .stat {
+    text-align: center;
+  }
+  .hero-stats dt {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1.2;
+  }
+  .hero-stats dd {
+    margin: 0.3rem 0 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  @media (max-width: 680px) {
+    .hero-stats {
+      gap: 1.75rem;
+    }
   }
 </style>

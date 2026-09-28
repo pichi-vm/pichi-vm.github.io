@@ -22,6 +22,17 @@ hero:
   eyebrow: pichi-vm
   # <br> marks the line break in the headline.
   title: The container workflow,<br>for real virtual machines.
+  # Compact command preview — the product, above the fold. The annotated
+  # walkthrough (with output) lives in the "How it works" terminal below.
+  commands:
+    - pichi pull ghcr.io/acme/app:1.0
+    - pichi run app:1.0
+  # Stat strip under the CTAs. Design targets, not measured results — kept
+  # honest to match the "early / experimental" badge.
+  stats:
+    - { value: ~15 ms, label: boot target }
+    - { value: <5 MiB, label: memory overhead }
+    - { value: 3 hosts, label: one image }
 
 why:
   title: Why Pichi
@@ -31,9 +42,9 @@ why:
     - label: Lightweight & fast
       props:
         - heading: Fast startup
-          body: A pichi VM boots through a tiny measured chain, not large UEFI firmware — the guest is running in tens of milliseconds.
+          body: A pichi VM boots through a tiny measured chain, not large UEFI firmware — designed to have the guest running in tens of milliseconds, not seconds.
         - heading: Low memory overhead
-          body: No fat firmware, no emulated legacy hardware — the VM adds a few megabytes over the guest, not hundreds.
+          body: No fat firmware, no emulated legacy hardware — the VM is built to add a few megabytes over the guest, not hundreds.
         - heading: Run anywhere
           body: One image runs on Linux, macOS, and Windows hosts.
     - label: The workflow you know
@@ -66,7 +77,7 @@ howItWorks:
       body: Pull a pichi image from any OCI registry.
     - n: 03 · RUN
       heading: " "
-      body: Boot it anywhere as a real VM, with industry-leading startup times.
+      body: Boot it anywhere as a real VM, designed for a boot measured in milliseconds.
 
   # The live walkthrough shown beside the steps. Each line: kind "cmd" (a $
   # prompt + command), "out" (output), or "gap" (blank line). Quote the text so
@@ -140,6 +151,5 @@ footer:
   meta:
     - { label: GitHub, href: https://github.com/pichi-vm }
     - { label: Security & trust, href: /security }
-    - { label: Docs & demos, href: docs.html }
   license: Apache-2.0 licensed
   badge: open source · early / experimental
