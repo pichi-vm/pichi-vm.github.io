@@ -82,6 +82,8 @@ code {
 /* ── Section scaffolding ──────────────────────────────── */
 .section {
   margin-bottom: 4rem;
+  /* Anchor targets clear the sticky under-construction banner when jumped to. */
+  scroll-margin-top: 3.5rem;
 }
 .section-title {
   font-size: 0.8rem;

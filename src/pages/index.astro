@@ -23,6 +23,7 @@ import Hero from "../components/Hero.astro";
 import FeatureGrid from "../components/FeatureGrid.astro";
 import StepsTerminal from "../components/StepsTerminal.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
+import SectionNav from "../components/SectionNav.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -41,4 +42,11 @@ import Footer from "../components/Footer.astro";
   </ComparisonTable>
   <FeatureGrid content={landing.why} />
   <Footer footer={landing.footer} ctas={footerCtas} />
+  <SectionNav
+    targets={[
+      { href: "#try-it", label: "How it works" },
+      { href: "#compare", label: "Containers vs. VMs" },
+      { href: "#why", label: "Why pichi" },
+    ]}
+  />
 </Layout>

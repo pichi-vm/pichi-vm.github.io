@@ -1,0 +1,129 @@
+---
+// ── Section nav: a fixed "next section" bar pinned to the viewport bottom ──────
+// One bar, always at the bottom of the window as you scroll. A small script
+// tracks scroll position and points the bar at the next section down, updating
+// the label; the bar hides once the last section is reached. Progressive
+// enhancement — with no JS it stays hidden rather than showing a dead button.
+interface Props {
+  // Ordered list of scroll targets, top-to-bottom: { href: "#id", label }.
+  targets: { href: string; label: string }[];
+}
+
+const { targets } = Astro.props;
+---
+
+<a
+  class="section-nav"
+  href=""
+  hidden
+  data-section-nav
+  aria-label="Skip to next section"
+>
+  <span class="hint">Next</span>
+  <span class="dest" data-dest></span>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M6 9l6 6 6-6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></path>
+  </svg>
+</a>
+
+<script is:inline define:vars={{ targets }}>
+  (() => {
+    const bar = document.querySelector("[data-section-nav]");
+    const destEl = bar?.querySelector("[data-dest]");
+    if (!bar || !destEl) return;
+
+    const resolve = () =>
+      targets
+        .map((t) => ({ ...t, el: document.querySelector(t.href) }))
+        .filter((t) => t.el);
+
+    const items = resolve();
+    if (!items.length) return;
+
+    const update = () => {
+      // The first target whose top is still meaningfully below the fold is the
+      // "next" one; a small margin keeps the current section from re-selecting.
+      const margin = window.innerHeight * 0.5;
+      const next = items.find((t) => t.el.getBoundingClientRect().top > margin);
+      if (next) {
+        bar.setAttribute("href", next.href);
+        destEl.textContent = next.label;
+        bar.removeAttribute("hidden");
+      } else {
+        bar.setAttribute("hidden", "");
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+  })();
+</script>
+
+<style>
+  .section-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    text-decoration: none;
+    color: var(--fg);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border);
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+  .section-nav[hidden] {
+    display: none;
+  }
+  .hint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .dest {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .section-nav svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--muted);
+  }
+  .section-nav:hover,
+  .section-nav:focus-visible {
+    color: #fff;
+    background: color-mix(in srgb, #1b2530 92%, transparent);
+  }
+  .section-nav:hover svg,
+  .section-nav:focus-visible svg {
+    color: var(--green);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .section-nav svg {
+      transition: transform 0.15s ease;
+    }
+    .section-nav:hover svg,
+    .section-nav:focus-visible svg {
+      transform: translateY(2px);
+    }
+  }
+</style>
