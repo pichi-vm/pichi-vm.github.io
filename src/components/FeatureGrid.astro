@@ -1,7 +1,14 @@
 ---
-// ── Feature grid: title + thematic bands, each an eyebrow label over a 3-up
-// row of heading/body/(note) cards. Cards lift and glow on hover, with an
-// accent bar sliding in from the left edge.
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+//
+// ── Feature grid: three pillars, one per axis the hero stats hit. Each pillar
+// leads with its label as a bold title and its thesis as a lighter subtitle,
+// then lists its facts as a hover accordion — hovering (or focusing) a fact
+// heading reveals its body, and a green keyline grows down the open fact's left
+// edge. Fully keyboard/touch operable via a hidden focusable checkbox, and the
+// reveal + keyline snap rather than tween under reduced motion. Collapses to one
+// column on mobile.
 import type { FeatureGridContent } from "../content/schema";
 
 interface Props {
@@ -13,102 +20,193 @@ const { content } = Astro.props;
 
 <section class="section" id="why">
   <h2 class="h">{content.title}</h2>
-  {content.groups.map((group) => (
-    <div class="band">
-      <div class="band-label">{group.label}</div>
-      <div class="grid grid-3">
-        {group.props.map((prop) => (
-          <div class="prop">
-            <h3>{prop.heading}</h3>
-            <p>
-              {prop.body}
-              {prop.note && <span class="note">{prop.note}</span>}
-            </p>
-          </div>
-        ))}
+  <div class="pillars grid grid-3">
+    {content.groups.map((group, i) => (
+      <div class="pillar">
+        <p class="pillar-label">{group.label}</p>
+        {group.thesis && <p class="thesis">{group.thesis}</p>}
+        <div class="facts">
+          {group.props.map((prop, j) => (
+            <div class="fact">
+              <input type="checkbox" id={`why-${i}-${j}`} class="fact-toggle" />
+              <label class="fact-summary" for={`why-${i}-${j}`}>
+                <span class="fact-h">{prop.heading}</span>
+                <span class="chev" aria-hidden="true" />
+              </label>
+              <div class="fact-reveal">
+                <div class="fact-reveal-inner">
+                  <p class="fact-b">{prop.body}</p>
+                  {prop.note && <p class="fact-note">{prop.note}</p>}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  ))}
+    ))}
+  </div>
 </section>
 
 <style>
-  .band {
-    margin-top: 2rem;
+  .pillars {
+    margin-top: 1.75rem;
+    align-items: start;
+    /* Reserve height for the tallest single-open state so hovering a fact opens
+       into pre-allocated space instead of growing the shared grid row (which
+       would shove the footer up and down). The three pillars share one row, so
+       one buffer covers all of them; at rest this shows as a little breathing
+       room below the pillars. On mobile the stacked pillars already exceed this,
+       so the min-height is inert there and doesn't create a gap. */
+    min-height: 20rem;
+    align-content: start;
   }
-  .band:first-of-type {
-    margin-top: 1.5rem;
-  }
-  .band-label {
+  /* Title — the prominent header. One short phrase per pillar, so a uniform
+     size keeps the three headers the same height and their subtitles aligned. */
+  .pillar-label {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    line-height: 1.3;
+    color: #fff;
+    margin: 0 0 0.5rem;
+  }
+  /* Subtitle — smaller and lighter than the title. */
+  .thesis {
+    margin: 0 0 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
     color: var(--muted);
-    margin-bottom: 0.9rem;
-    padding-bottom: 0.5rem;
+  }
+
+  .fact {
+    position: relative;
+    border-top: 1px solid var(--border);
+    /* The keyline lives in the left padding so the hairline dividers still span
+       the full width; text is inset to make room for it. */
+    padding-left: 0.9rem;
+  }
+  .fact:last-child {
     border-bottom: 1px solid var(--border);
   }
-  .prop {
-    position: relative;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.1rem 1.15rem;
-    overflow: hidden;
-    transition:
-      transform 0.16s ease,
-      border-color 0.16s ease,
-      box-shadow 0.16s ease;
-  }
-  /* Accent bar down the left edge, hidden until hover slides it in. */
-  .prop::before {
+  /* Green left keyline, hidden until the fact opens (hover / checked / focus). */
+  .fact::before {
     content: "";
     position: absolute;
-    inset: 0 auto 0 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 3px;
     background: var(--green);
     transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.16s ease;
+    transform-origin: center;
+    transition: transform 0.2s ease;
   }
-  .prop:hover {
-    transform: translateY(-3px);
-    border-color: var(--green);
-    box-shadow: 0 6px 22px -10px
-      color-mix(in srgb, var(--green) 55%, transparent);
-  }
-  .prop:hover::before {
+  .fact:hover::before,
+  .fact:focus-within::before,
+  .fact:has(.fact-toggle:checked)::before {
     transform: scaleY(1);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .prop {
-      transition: border-color 0.16s ease;
-    }
-    .prop:hover {
-      transform: none;
-      box-shadow: none;
-    }
-    .prop::before,
-    .prop:hover::before {
-      transition: none;
-    }
+
+  /* The checkbox is visually hidden but stays in the tab order and focusable, so
+     keyboard users reach it and toggle with Space. */
+  .fact-toggle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
-  .prop h3 {
-    font-size: 0.98rem;
+  .fact-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.8rem 0;
+    cursor: pointer;
+  }
+  /* Focus ring on the label when its hidden checkbox has keyboard focus. */
+  .fact-toggle:focus-visible + .fact-summary {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  .fact-h {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--fg);
+    transition: color 0.15s ease;
+  }
+  .fact:hover .fact-h,
+  .fact:focus-within .fact-h {
     color: #fff;
-    margin-bottom: 0.35rem;
   }
-  .prop p {
+  /* Chevron: a rotating caret drawn from borders, greened on open. */
+  .chev {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg);
+    transition:
+      transform 0.2s ease,
+      border-color 0.15s ease;
+  }
+  .fact:hover .chev,
+  .fact-toggle:checked + .fact-summary .chev,
+  .fact-toggle:focus-visible + .fact-summary .chev {
+    transform: rotate(225deg);
+    border-color: var(--green);
+  }
+
+  /* The reveal: a grid row that grows from 0fr to 1fr to animate to the body's
+     natural height. The inner wrapper's overflow:hidden is what lets it clip.
+     Opens on hover (desktop) or when the hidden checkbox is checked/focused
+     (click + keyboard), so the disclosure is not hover-only. */
+  .fact-reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+  .fact:hover .fact-reveal,
+  .fact-toggle:checked ~ .fact-reveal,
+  .fact-toggle:focus-visible ~ .fact-reveal {
+    grid-template-rows: 1fr;
+  }
+  .fact-reveal-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  .fact-b {
+    margin: 0 0 0.8rem;
     font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .fact-note {
+    margin: -0.4rem 0 0.8rem;
+    font-size: 0.78rem;
     line-height: 1.5;
     color: var(--muted);
-    margin: 0;
+    opacity: 0.8;
   }
-  .prop .note {
-    display: block;
-    margin-top: 0.55rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-    opacity: 0.85;
+
+  @media (prefers-reduced-motion: reduce) {
+    .fact-reveal,
+    .fact::before {
+      transition: none;
+    }
+    .chev {
+      transition: border-color 0.15s ease;
+    }
   }
 </style>

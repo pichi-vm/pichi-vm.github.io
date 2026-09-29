@@ -46,6 +46,9 @@ export const heroSchema = z.object({
   // fold. Each string is one `$` command line. The full annotated walkthrough
   // lives in the "How it works" terminal below.
   commands: z.array(z.string()).optional(),
+  // Optional numbered caption row under the hero terminal — one label + line per
+  // command (Install / Pull / Run). Same shape as the trust steps.
+  steps: z.array(stepSchema).optional(),
   // Optional stat strip under the CTAs. Framed as design targets, not measured
   // results — matches the "early / experimental" badge. Each: { value, label }.
   stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
@@ -67,10 +70,13 @@ export const problemSchema = z.object({
 export const whySchema = z.object({
   title: z.string(),
   // The props are split into labelled thematic bands (Performance / Workflow /
-  // …); each band renders an eyebrow over its own 3-up row of cards.
+  // …); each band renders as a pillar: the label as a headline, a one-line
+  // thesis, then the props as a compact stacked list beneath.
   groups: z.array(
     z.object({
       label: z.string(),
+      // One-line thesis under the label — the pillar's headline claim.
+      thesis: z.string().optional(),
       props: z.array(
         z.object({
           heading: z.string(),
@@ -92,14 +98,6 @@ export const terminalLineSchema = z.object({
 
 export const tryItSchema = z.object({
   title: z.string(),
-  terminal: z.array(terminalLineSchema),
-});
-
-// The merged walkthrough: numbered steps beside the live terminal that runs
-// them. Steps and commands are one slice so the page wires a single section.
-export const howItWorksSchema = z.object({
-  heading: z.string(),
-  steps: z.array(stepSchema),
   terminal: z.array(terminalLineSchema),
 });
 
@@ -160,7 +158,6 @@ const landingSchema = z.object({
   ctas: z.array(ctaSchema),
   hero: heroSchema,
   why: whySchema,
-  howItWorks: howItWorksSchema,
   // The "Build on trust, extend it forward" steps, shown after how-it-works.
   // Same shape (and component) as the security page's trust section.
   trust: trustSchema,
@@ -181,7 +178,6 @@ export type HeroContent = z.infer<typeof heroSchema>;
 export type CardGridContent = z.infer<typeof problemSchema>;
 export type FeatureGridContent = z.infer<typeof whySchema>;
 export type TerminalContent = z.infer<typeof tryItSchema>;
-export type StepsTerminalContent = z.infer<typeof howItWorksSchema>;
 export type StepsCaptionContent = z.infer<typeof trustSchema>;
 export type ColumnListsContent = z.infer<typeof whoSchema>;
 export type ComparisonTableContent = z.infer<typeof comparisonSchema>;
@@ -196,8 +192,6 @@ export const landing: Landing = landingSchema.parse(rawLanding);
 const proseSchema = z.object({
   heroSub: z.string(),
   comparisonIntro: z.string(),
-  howItWorksIntro: z.string(),
-  howItWorksCaption: z.string(),
   trustIntro: z.string(),
   trustCaption: z.string(),
   comparisonCaveat: z.string(),

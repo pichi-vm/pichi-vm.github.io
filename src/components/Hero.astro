@@ -30,7 +30,7 @@ const { hero, ctas } = Astro.props;
     <slot name="sub" />
   </div>
   {hero.commands && (
-    <div class="hero-term" aria-label="Example commands">
+    <div class="hero-term" id="try-it" aria-label="Example commands">
       <div class="hero-term-bar" aria-hidden="true">
         <span></span>
         <span></span>
@@ -43,6 +43,16 @@ const { hero, ctas } = Astro.props;
         </Fragment>
       ))}</pre>
     </div>
+  )}
+  {hero.steps && (
+    <ol class="hero-steps grid grid-3">
+      {hero.steps.map((step) => (
+        <li class="hero-step">
+          <span class="hero-step-n">{step.n}</span>
+          <span class="hero-step-body">{step.body}</span>
+        </li>
+      ))}
+    </ol>
   )}
   <Ctas ctas={ctas} />
   {hero.stats && (
@@ -60,9 +70,11 @@ const { hero, ctas } = Astro.props;
 <style>
   .hero {
     text-align: center;
-    padding: 2rem 0 3.5rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 3.5rem;
+    padding: 2rem 0 0;
+    /* Matches the 4rem gap between every other section (.section margin-bottom).
+       The old bottom padding + margin doubled the gap; it existed to clear the
+       bottom border (now removed), so it's dropped. */
+    margin-bottom: 4rem;
   }
   /* Shrink-wrap around the headings and center that on the page, so the title
      (and the eyebrow) stay aligned with the sub-line / terminal / CTAs below.
@@ -157,6 +169,35 @@ const { hero, ctas } = Astro.props;
   }
   .hero-term .c {
     color: #fff;
+  }
+  /* Numbered caption row under the terminal: a label + one line per command, no
+     surface cards. Left-aligned text, constrained to the terminal's width so it
+     reads as a caption of it. */
+  .hero-steps {
+    list-style: none;
+    max-width: 30rem;
+    margin: 0 auto 2rem;
+    padding: 0;
+    text-align: left;
+  }
+  .hero-step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .hero-step-n {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .hero-step-body {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--muted);
   }
   /* Stat strip — framed as design targets in the labels, not measured results. */
   .hero-stats {

@@ -15,12 +15,6 @@ comparisonIntro: >-
   Two ways to run software in isolation today — each asks you to give something
   up. pichi is the third: the row-by-row case is below.
 
-howItWorksIntro: >-
-  Pull a Pichi image and boot it as a real VM in three commands.
-
-howItWorksCaption: >-
-  <a href="https://github.com/pichi-vm">explore the source and build it yourself →</a>
-
 trustIntro: >-
   A pichi image is built as layers, like a Docker image — and each layer
   cryptographically binds to the one below it, so one trust anchor validates the

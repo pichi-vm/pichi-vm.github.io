@@ -22,11 +22,23 @@ hero:
   eyebrow: pichi-vm
   # <br> marks the line break in the headline.
   title: The container workflow,<br>for real virtual machines.
-  # Compact command preview — the product, above the fold. The annotated
-  # walkthrough (with output) lives in the "How it works" terminal below.
+  # Compact command preview — the product, above the fold: install, pull, run.
+  # The numbered steps below caption these three commands one-to-one.
   commands:
+    - apt install pichi
     - pichi pull ghcr.io/acme/postgres-vm:16
     - pichi run postgres-vm:16
+  # Numbered caption row under the terminal — one line per command above.
+  steps:
+    - n: 01 · INSTALL
+      heading: " "
+      body: Grab the pichi binary. One tool with no host reconfiguration.
+    - n: 02 · PULL
+      heading: " "
+      body: Pull a pichi image from any OCI registry.
+    - n: 03 · RUN
+      heading: " "
+      body: Boot it anywhere as a real VM, designed for a boot measured in milliseconds.
   # Stat strip under the CTAs. Design targets, not measured results — kept
   # honest to match the "early / experimental" badge.
   stats:
@@ -44,62 +56,37 @@ hero:
 
 why:
   title: Why Pichi
-  # Props are grouped into thematic bands; each renders as an eyebrow-labelled
-  # 3-up row. Keep three cards per group so every row fills cleanly.
+  # Three pillars, one per axis the hero stats hit (fast / familiar / isolated).
+  # Each group: a label headline, a one-line thesis, then its props as a compact
+  # stacked list (heading + one-line body). Keep three props per pillar.
   groups:
     - label: Lightweight & fast
+      thesis: Boots in milliseconds and adds megabytes — not seconds and gigabytes.
       props:
         - heading: Fast startup
-          body: A pichi VM boots through a tiny measured chain, not large UEFI firmware — designed to have the guest running in tens of milliseconds, not seconds.
+          body: A tiny measured boot chain, not large UEFI firmware — designed to hand off in tens of milliseconds.
         - heading: Low memory overhead
-          body: No fat firmware, no emulated legacy hardware — the VM is built to add a few megabytes over the guest, not hundreds.
+          body: No fat firmware, no emulated legacy hardware — built to add megabytes over the guest, not hundreds.
         - heading: Run anywhere
           body: One image runs on Linux, macOS, and Windows hosts.
     - label: The workflow you know
+      thesis: Pull, push, and run over any OCI registry — the container workflow, unchanged.
       props:
         - heading: Container-like workflow
           body: Pull, push, run, and cache over any OCI registry — the workflow you already know.
-        - heading: Incremental social distribution
-          body: A pichi image is built in layers, like a Docker image. Push or pull only the layers that changed — and build on anyone else's image, sharing common bases the way containers taught you to.
+        - heading: Incremental distribution
+          body: Built in layers like a Docker image — push or pull only what changed, and build on anyone else's base.
         - heading: Immutable images
-          body: Every image is read-only and content-addressed. You don't patch a running VM — you rebuild and redeploy, so what you tested is exactly what runs. No drift, clean rollback.
+          body: Read-only and content-addressed — you rebuild and redeploy, so what you tested is exactly what runs.
     - label: Real isolation & trust
+      thesis: A real hardware VM boundary — your own kernel and memory, not a slice of the host's.
       props:
         - heading: Real isolation
-          body: Your own kernel and your own memory, not a slice of the host's — a true VM boundary, not a shared-kernel namespace.
+          body: Your own kernel and memory — a true VM boundary, not a shared-kernel namespace.
         - heading: Explicit hardware, by contract
-          body: PMI makes the guest's hardware explicit — you declare the devices and resources you run on. Host and guest negotiate a resource contract at launch, no admin privilege required.
+          body: PMI makes the guest's hardware explicit — host and guest negotiate a resource contract at launch, no admin privilege.
         - heading: Confidential computing
-          body: The small, measurable trusted base is built for attestation — a path to running images confidentially on hardware you can prove, not just trust.
-
-howItWorks:
-  heading: How it works
-  # The three steps map one-to-one onto the terminal commands beside them:
-  # Install → apt install, Pull → pichi pull, Run → pichi run.
-  steps:
-    - n: 01 · INSTALL
-      heading: " "
-      body: Grab the pichi binary. One tool with no host reconfiguration.
-    - n: 02 · PULL
-      heading: " "
-      body: Pull a pichi image from any OCI registry.
-    - n: 03 · RUN
-      heading: " "
-      body: Boot it anywhere as a real VM, designed for a boot measured in milliseconds.
-
-  # The live walkthrough shown beside the steps. Each line: kind "cmd" (a $
-  # prompt + command), "out" (output), or "gap" (blank line). Quote the text so
-  # commas aren't read as YAML separators.
-  terminal:
-    - { kind: cmd, text: "apt install pichi" }
-    - { kind: out, text: "Installing: pichi  (provisional — 0.x)" }
-    - { kind: gap }
-    - { kind: cmd, text: "pichi pull ghcr.io/acme/postgres-vm:16" }
-    - { kind: out, text: "Fetched postgres-vm:16 — 3 of 5 layers reused" }
-    - { kind: gap }
-    - { kind: cmd, text: "pichi run postgres-vm:16" }
-    - { kind: out, text: "Booting VM… boot chain measured, handing off." }
-    - { kind: out, text: "guest ready — own kernel, own memory" }
+          body: A small, measurable trusted base built for attestation — a path to proving hardware, not just trusting it.
 
 # The "Build on trust, extend it forward" steps, shown right after how-it-works.
 # Mirrors the security page's trust section (same StepsCaption component); the

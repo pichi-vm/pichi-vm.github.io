@@ -21,7 +21,6 @@ const footerCtas = [landing.ctas[0], ...landing.exploreSecurity];
 import UnderConstructionBanner from "../components/UnderConstructionBanner.astro";
 import Hero from "../components/Hero.astro";
 import FeatureGrid from "../components/FeatureGrid.astro";
-import StepsTerminal from "../components/StepsTerminal.astro";
 import StepsCaption from "../components/StepsCaption.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
 import SectionNav from "../components/SectionNav.astro";
@@ -33,25 +32,20 @@ import Footer from "../components/Footer.astro";
   <Hero hero={landing.hero} ctas={landing.ctas}>
     <p slot="sub" set:html={prose.heroSub} />
   </Hero>
-  <StepsTerminal content={landing.howItWorks}>
-    <p slot="intro" set:html={prose.howItWorksIntro} />
-    <p slot="caption" set:html={prose.howItWorksCaption} />
-  </StepsTerminal>
-  <StepsCaption content={landing.trust} id="trust">
-    <p slot="intro" set:html={prose.trustIntro} />
-    <p slot="caption" set:html={prose.trustCaption} />
-  </StepsCaption>
   <ComparisonTable content={landing.comparison}>
     <p slot="intro" set:html={prose.comparisonIntro} />
     <p slot="caveat" set:html={prose.comparisonCaveat} />
   </ComparisonTable>
+  <StepsCaption content={landing.trust} id="trust">
+    <p slot="intro" set:html={prose.trustIntro} />
+    <p slot="caption" set:html={prose.trustCaption} />
+  </StepsCaption>
   <FeatureGrid content={landing.why} />
   <Footer footer={landing.footer} ctas={footerCtas} />
   <SectionNav
     targets={[
-      { href: "#try-it", label: "How it works" },
-      { href: "#trust", label: "Build on trust" },
       { href: "#compare", label: "Containers vs. VMs" },
+      { href: "#trust", label: "Build on trust" },
       { href: "#why", label: "Why pichi" },
     ]}
   />
