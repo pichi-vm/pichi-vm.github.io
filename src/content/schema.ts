@@ -161,6 +161,9 @@ const landingSchema = z.object({
   hero: heroSchema,
   why: whySchema,
   howItWorks: howItWorksSchema,
+  // The "Build on trust, extend it forward" steps, shown after how-it-works.
+  // Same shape (and component) as the security page's trust section.
+  trust: trustSchema,
   // A one-button row linking into the security page (rendered as a Ctas row).
   exploreSecurity: z.array(ctaSchema),
   comparison: comparisonSchema,
@@ -195,6 +198,8 @@ const proseSchema = z.object({
   comparisonIntro: z.string(),
   howItWorksIntro: z.string(),
   howItWorksCaption: z.string(),
+  trustIntro: z.string(),
+  trustCaption: z.string(),
   comparisonCaveat: z.string(),
 });
 

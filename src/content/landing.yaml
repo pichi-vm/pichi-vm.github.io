@@ -93,6 +93,22 @@ howItWorks:
     - { kind: out, text: "Booting VM… boot chain measured, handing off." }
     - { kind: out, text: "guest ready — own kernel, own memory" }
 
+# The "Build on trust, extend it forward" steps, shown right after how-it-works.
+# Mirrors the security page's trust section (same StepsCaption component); the
+# deeper mechanism still lives on /security, linked from exploreSecurity below.
+trust:
+  heading: Build on trust, extend it forward
+  steps:
+    - n: START
+      heading: From a trusted base
+      body: Begin with a base image whose integrity you already vouch for — a shared root others build from.
+    - n: EXTEND
+      heading: Add your own layers
+      body: Stack your changes on top. Each layer is a read-only, integrity-protected image bound into the chain below it.
+    - n: VERIFY
+      heading: One anchor checks it all
+      body: A single trusted root validates the entire stack. Tamper with any layer and the check fails — no trust is lost as you extend.
+
 # One-button row linking to the security page. The trust/layers mechanism and
 # the audience columns live there now, so the landing page stays a tight pitch.
 exploreSecurity:

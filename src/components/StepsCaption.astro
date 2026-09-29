@@ -6,12 +6,14 @@ import Steps from "./Steps.astro";
 
 interface Props {
   content: StepsCaptionContent;
+  // Optional anchor id so a page can target this section (e.g. the bottom nav).
+  id?: string;
 }
 
-const { content } = Astro.props;
+const { content, id } = Astro.props;
 ---
 
-<section class="section">
+<section class="section" id={id}>
   <h2 class="h">{content.heading}</h2>
   <div class="section-desc trust-intro">
     <slot name="intro" />

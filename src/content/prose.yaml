@@ -21,6 +21,15 @@ howItWorksIntro: >-
 howItWorksCaption: >-
   <a href="https://github.com/pichi-vm">explore the source and build it yourself →</a>
 
+trustIntro: >-
+  A pichi image is built as layers, like a Docker image — and each layer
+  cryptographically binds to the one below it, so one trust anchor validates the
+  whole stack.
+
+trustCaption: >-
+  Shared bases mean common layers are fetched, signed, and scanned once — then
+  reused across every image that builds on them.
+
 comparisonCaveat: >-
   These are real virtual machines — heavier than a container, far lighter than a
   traditional VM.
