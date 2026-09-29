@@ -13,15 +13,19 @@ const { hero, ctas } = Astro.props;
 ---
 
 <header class="hero">
-  <img
-    class="hero-logo"
-    src="/pichi-logo.png"
-    width="112"
-    height="112"
-    alt={hero.logoAlt}
-  />
-  <div class="eyebrow">{hero.eyebrow}</div>
-  <h1 set:html={hero.title} />
+  <div class="hero-head">
+    <img
+      class="hero-mascot"
+      src="/pichi-logo.png"
+      width="247"
+      height="260"
+      alt={hero.logoAlt}
+    />
+    <div class="hero-headings">
+      <div class="eyebrow">{hero.eyebrow}</div>
+      <h1 set:html={hero.title} />
+    </div>
+  </div>
   <div class="sub">
     <slot name="sub" />
   </div>
@@ -60,17 +64,39 @@ const { hero, ctas } = Astro.props;
     border-bottom: 1px solid var(--border);
     margin-bottom: 3.5rem;
   }
-  .hero-logo {
-    width: 112px;
-    height: 112px;
-    margin: 0 auto 1.5rem;
-    display: block;
-    border-radius: 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 0.75rem;
+  /* Shrink-wrap around the headings and center that on the page, so the title
+     (and the eyebrow) stay aligned with the sub-line / terminal / CTAs below.
+     The mascot is positioned relative to THIS block — out of flow, so it frames
+     the title without shoving it off page-center. */
+  .hero-head {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    padding-top: 0.5rem;
+  }
+  .hero-headings {
+    text-align: center;
+  }
+  /* The mascot is black line-art on transparency; invert() flips it to white so
+     it reads on the dark background, then dim it so the title stays dominant.
+     Anchored to the headings' left edge and shifted left by ~80% of its own
+     width, so only ~20% tucks behind the title — a constant overlap at any
+     width (it moves with the centered block, not the column edge). */
+  .hero-mascot {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 10rem;
+    width: auto;
+    transform: translate(-80%, -50%);
+    filter: invert(1);
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
   }
   .eyebrow {
+    position: relative;
+    z-index: 1;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     letter-spacing: 0.12em;
@@ -79,11 +105,13 @@ const { hero, ctas } = Astro.props;
     margin-bottom: 1.25rem;
   }
   .hero h1 {
+    position: relative;
+    z-index: 1;
     font-size: 2.6rem;
     font-weight: 800;
     line-height: 1.15;
     color: #fff;
-    margin-bottom: 1.1rem;
+    margin-bottom: 0;
     letter-spacing: -0.02em;
   }
   .hero .sub {
@@ -161,6 +189,18 @@ const { hero, ctas } = Astro.props;
   @media (max-width: 680px) {
     .hero-stats {
       gap: 1.75rem;
+    }
+    /* Not enough width to flank on mobile — put the mascot back in flow, above
+       and centered over the title, instead of tucked to its left. */
+    .hero-head {
+      padding-top: 6.75rem;
+    }
+    .hero-mascot {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 5.5rem;
+      transform: translateX(-50%);
     }
   }
 </style>
