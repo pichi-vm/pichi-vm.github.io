@@ -30,9 +30,17 @@ hero:
   # Stat strip under the CTAs. Design targets, not measured results — kept
   # honest to match the "early / experimental" badge.
   stats:
+    # Three distinct axes: how fast, how you use it, how strong the boundary.
+    # - boot target: a design goal, framed as such (matches the "early" badge).
+    # - OCI native: pull/push/run over any registry — the container workflow.
+    # - Real VM boundary: hardware-isolated (guest runs under the host's
+    #   hypervisor — KVM/HVF/WHP — enforcing a CPU-virtualization boundary), not
+    #   a host-kernel namespace. "hardware-isolated" = HW virtualization, NOT
+    #   SEV/TDX memory encryption (that's the forward-looking CC story on
+    #   /security). See pichi ARCHITECTURE.md.
     - { value: ~15 ms, label: boot target }
-    - { value: <5 MiB, label: memory overhead }
-    - { value: 3 hosts, label: one image }
+    - { value: OCI native, label: pull · push · run }
+    - { value: Real VM boundary, label: hardware-isolated }
 
 why:
   title: Why Pichi
