@@ -44,7 +44,9 @@ body {
 .page {
   max-width: 52rem;
   width: 100%;
-  padding: 4rem 0 5rem;
+  /* No top padding: the sticky under-construction banner sits flush at the top
+     of the page. Spacing below the banner comes from its own margin-bottom. */
+  padding: 0 0 5rem;
 }
 a {
   color: var(--accent);

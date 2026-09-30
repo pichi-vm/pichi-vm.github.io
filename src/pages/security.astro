@@ -22,7 +22,7 @@ import Footer from "../components/Footer.astro";
   description="How pichi-vm builds a small, verifiable trusted base: images are layered like a Docker image, each layer cryptographically bound to the one below, so a single anchor validates the whole stack."
 >
   <UnderConstructionBanner />
-  <Hero hero={security.hero} ctas={security.ctas}>
+  <Hero hero={security.hero}>
     <p slot="sub" set:html={securityProse.heroSub} />
   </Hero>
   <StepsCaption content={security.trust}>
