@@ -51,7 +51,7 @@ comparison:
       dot: gold
       verdict: Own boundary, but a large UEFI firmware base that varies by host.
     - key: pichi
-      name: pichi
+      name: Pichi
       dot: green
       win: true
       verdict: A tiny boot stub you can measure, with attestation on the roadmap.

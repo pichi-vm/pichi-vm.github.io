@@ -12,11 +12,11 @@ heroSub: >-
   running micro-VMs securely and confidentially at scale.
 
 comparisonIntro: >-
-  Two ways to run software in isolation today — each asks you to give something
-  up. pichi is the third: the row-by-row case is below.
+  Speed or isolation — until now, you had to choose. Here's how Pichi compares
+  to both.
 
 trustIntro: >-
-  A pichi image is built as layers, like a Docker image — and each layer
+  A Pichi image is built as layers, like a Docker image — and each layer
   cryptographically binds to the one below it, so one trust anchor validates the
   whole stack.
 

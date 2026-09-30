@@ -5,12 +5,12 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 heroSub: >-
-  A pichi image boots through a tiny, measured boot chain instead of large UEFI
+  A Pichi image boots through a tiny, measured boot chain instead of large UEFI
   firmware — a small trusted base you can actually audit. The same layers that
   make distribution incremental are what make the whole stack verifiable.
 
 trustIntro: >-
-  A pichi image is built as layers, like a Docker image — and each layer
+  A Pichi image is built as layers, like a Docker image — and each layer
   cryptographically binds to the one below it, so one trust anchor validates the
   whole stack.
 

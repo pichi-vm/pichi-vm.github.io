@@ -89,10 +89,12 @@ const hasLink = Astro.slots.has("link");
     border-bottom: 1px solid var(--border);
     vertical-align: middle;
   }
-  /* Column headers are the option cards: name on top, verdict beneath. */
+  /* Column headers are the option cards: name on top, verdict beneath. Top-
+     aligned so the names sit on one line even when a verdict wraps to two. */
   thead th.opt {
     background: var(--surface);
     color: #fff;
+    vertical-align: top;
     /* Even column widths so no option's card dominates. */
     width: calc((100% - 9rem) / 3);
   }
@@ -144,9 +146,12 @@ const hasLink = Astro.slots.has("link");
   tbody tr:hover {
     background: rgba(255, 255, 255, 0.04);
   }
+  /* Row labels are the categories — emphasized to match the column headers:
+     same white, size, and weight, so both axes of the table read as headers. */
   tbody th {
-    font-weight: 600;
-    color: var(--fg);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
     white-space: nowrap;
   }
   td.win {
