@@ -7,15 +7,13 @@
 #     rendered as-is with set:html (use inline HTML like <br> for a break).
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Call-to-action buttons, reused in the hero and footer.
-# style: "primary" (filled) or "ghost" (outline).
+# Call-to-action buttons. style: "primary" (filled) or "ghost" (outline).
+# ctas[0] ("View the source") is the footer's primary button; the footer pairs
+# it with the exploreSecurity link. The hero carries no CTA row.
 ctas:
   - label: View the source
     href: https://github.com/pichi-vm
     style: primary
-  - label: Try It
-    href: "#try-it"
-    style: ghost
 
 hero:
   logoAlt: pichi-vm mascot — a curled-up armadillo line drawing

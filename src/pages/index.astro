@@ -29,7 +29,7 @@ import Footer from "../components/Footer.astro";
 
 <Layout>
   <UnderConstructionBanner />
-  <Hero hero={landing.hero} ctas={landing.ctas}>
+  <Hero hero={landing.hero}>
     <p slot="sub" set:html={prose.heroSub} />
   </Hero>
   <ComparisonTable content={landing.comparison}>

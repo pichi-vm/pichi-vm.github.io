@@ -1,15 +1,13 @@
 ---
 // ── Hero ──────────────────────────────────────────────
 // Sub-line comes in via the "sub" slot so the page owns the wording.
-import type { HeroContent, CtaContent } from "../content/schema";
-import Ctas from "./Ctas.astro";
+import type { HeroContent } from "../content/schema";
 
 interface Props {
   hero: HeroContent;
-  ctas: CtaContent[];
 }
 
-const { hero, ctas } = Astro.props;
+const { hero } = Astro.props;
 ---
 
 <header class="hero">
@@ -29,8 +27,18 @@ const { hero, ctas } = Astro.props;
   <div class="sub">
     <slot name="sub" />
   </div>
+  {hero.steps && (
+    <ol class="hero-steps grid grid-3">
+      {hero.steps.map((step) => (
+        <li class="hero-step">
+          <span class="hero-step-n">{step.n}</span>
+          <span class="hero-step-body">{step.body}</span>
+        </li>
+      ))}
+    </ol>
+  )}
   {hero.commands && (
-    <div class="hero-term" id="try-it" aria-label="Example commands">
+    <div class="hero-term" aria-label="Example commands">
       <div class="hero-term-bar" aria-hidden="true">
         <span></span>
         <span></span>
@@ -44,17 +52,6 @@ const { hero, ctas } = Astro.props;
       ))}</pre>
     </div>
   )}
-  {hero.steps && (
-    <ol class="hero-steps grid grid-3">
-      {hero.steps.map((step) => (
-        <li class="hero-step">
-          <span class="hero-step-n">{step.n}</span>
-          <span class="hero-step-body">{step.body}</span>
-        </li>
-      ))}
-    </ol>
-  )}
-  <Ctas ctas={ctas} />
   {hero.stats && (
     <dl class="hero-stats">
       {hero.stats.map((stat) => (
@@ -170,9 +167,9 @@ const { hero, ctas } = Astro.props;
   .hero-term .c {
     color: #fff;
   }
-  /* Numbered caption row under the terminal: a label + one line per command, no
+  /* Numbered step row above the terminal: a label + one line per command, no
      surface cards. Left-aligned text, constrained to the terminal's width so it
-     reads as a caption of it. */
+     lines up with the example below it. */
   .hero-steps {
     list-style: none;
     max-width: 30rem;
@@ -199,7 +196,8 @@ const { hero, ctas } = Astro.props;
     line-height: 1.5;
     color: var(--muted);
   }
-  /* Stat strip — framed as design targets in the labels, not measured results. */
+  /* Stat strip — framed as design targets in the labels, not measured results.
+     Closes out the hero under the terminal + steps, set off by a top divider. */
   .hero-stats {
     display: flex;
     justify-content: center;
