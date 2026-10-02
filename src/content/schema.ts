@@ -193,7 +193,7 @@ const proseSchema = z.object({
   heroSub: z.string(),
   comparisonIntro: z.string(),
   trustIntro: z.string(),
-  trustCaption: z.string(),
+  trustCaption: z.string().optional(),
   comparisonCaveat: z.string(),
 });
 
@@ -223,7 +223,7 @@ export const security: Security = securitySchema.parse(rawSecurity);
 const securityProseSchema = z.object({
   heroSub: z.string(),
   trustIntro: z.string(),
-  trustCaption: z.string(),
+  trustCaption: z.string().optional(),
   comparisonIntro: z.string(),
   comparisonCaveat: z.string(),
 });

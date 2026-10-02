@@ -19,7 +19,7 @@ hero:
   logoAlt: pichi-vm mascot — a curled-up armadillo line drawing
   eyebrow: pichi-vm
   # <br> marks the line break in the headline.
-  title: The container workflow,<br>for real virtual machines.
+  title: Container workflow<br>for real virtual machines
   # Compact command preview — the product, above the fold: install, pull, run.
   # The numbered steps below caption these three commands one-to-one.
   commands:
@@ -30,13 +30,13 @@ hero:
   steps:
     - n: 01 · INSTALL
       heading: " "
-      body: Grab the Pichi binary. One tool with no host reconfiguration.
+      body: Install the Pichi binary. No host reconfiguration required.
     - n: 02 · PULL
       heading: " "
       body: Pull a Pichi image from any OCI registry.
     - n: 03 · RUN
       heading: " "
-      body: Boot it anywhere as a real VM, designed for a boot measured in milliseconds.
+      body: Boot in milliseconds.
   # Stat strip under the CTAs. Design targets, not measured results — kept
   # honest to match the "early / experimental" badge.
   stats:
@@ -48,7 +48,7 @@ hero:
     #   a host-kernel namespace. "hardware-isolated" = HW virtualization, NOT
     #   SEV/TDX memory encryption (that's the forward-looking CC story on
     #   /security). See pichi ARCHITECTURE.md.
-    - { value: ~15 ms, label: boot target }
+    - { value: ~50 ms, label: boot target }
     - { value: OCI native, label: pull · push · run }
     - { value: Real VM boundary, label: hardware-isolated }
 
@@ -58,49 +58,49 @@ why:
   # Each group: a label headline, a one-line thesis, then its props as a compact
   # stacked list (heading + one-line body). Keep three props per pillar.
   groups:
-    - label: Lightweight & fast
-      thesis: Boots in milliseconds and adds megabytes — not seconds and gigabytes.
+    - label: Fast and light
+      thesis: Boots in milliseconds with minimal memory overhead.
       props:
-        - heading: Fast startup
-          body: A tiny measured boot chain, not large UEFI firmware — designed to hand off in tens of milliseconds.
+        - heading: Tiny boot chain
+          body: No UEFI firmware or legacy emulation.
         - heading: Low memory overhead
-          body: No fat firmware, no emulated legacy hardware — built to add megabytes over the guest, not hundreds.
+          body: No firmware or emulated legacy hardware. Adds megabytes, not hundreds.
         - heading: Run anywhere
           body: One image runs on Linux, macOS, and Windows hosts.
-    - label: The workflow you know
-      thesis: Pull, push, and run over any OCI registry — the container workflow, unchanged.
+    - label: Container workflow
+      thesis: Pull, push, and run over any OCI registry.
       props:
-        - heading: Container-like workflow
-          body: Pull, push, run, and cache over any OCI registry — the workflow you already know.
+        - heading: OCI registries
+          body: Pull, push, and run images over any OCI-compatible registry.
         - heading: Incremental distribution
-          body: Built in layers like a Docker image — push or pull only what changed, and build on anyone else's base.
+          body: Built in layers. Push or pull only what changed, and build on anyone else's base.
         - heading: Immutable images
-          body: Read-only and content-addressed — you rebuild and redeploy, so what you tested is exactly what runs.
-    - label: Real isolation & trust
-      thesis: A real hardware VM boundary — your own kernel and memory, not a slice of the host's.
+          body: Read-only and content-addressed. Rebuild and redeploy — what you tested is what runs.
+    - label: Isolation and trust
+      thesis: Hardware VM boundary with your own kernel, not shared with the host.
       props:
-        - heading: Real isolation
-          body: Your own kernel and memory — a true VM boundary, not a shared-kernel namespace.
-        - heading: Explicit hardware, by contract
-          body: PMI makes the guest's hardware explicit — host and guest negotiate a resource contract at launch, no admin privilege.
+        - heading: Hardware isolation
+          body: Your own kernel, not a shared-kernel namespace.
+        - heading: Contract-defined hardware
+          body: PMI defines guest hardware explicitly. Host and guest negotiate resources at launch without admin privilege.
         - heading: Confidential computing
-          body: A small, measurable trusted base built for attestation — a path to proving hardware, not just trusting it.
+          body: Small, measurable trusted base built for attestation. Verify hardware configuration at boot.
 
 # The "Build on trust, extend it forward" steps, shown right after how-it-works.
 # Mirrors the security page's trust section (same StepsCaption component); the
 # deeper mechanism still lives on /security, linked from exploreSecurity below.
 trust:
-  heading: Build on trust, extend it forward
+  heading: Layered images, validated at runtime
   steps:
     - n: START
       heading: From a trusted base
-      body: Begin with a base image whose integrity you already vouch for — a shared root others build from.
+      body: Start with an image whose integrity you verify.
     - n: EXTEND
       heading: Add your own layers
-      body: Stack your changes on top. Each layer is a read-only, integrity-protected image bound into the chain below it.
+      body: Layer your changes on top. Each layer is read-only and integrity-protected.
     - n: VERIFY
-      heading: One anchor checks it all
-      body: A single trusted root validates the entire stack. Tamper with any layer and the check fails — no trust is lost as you extend.
+      heading: Single root of trust
+      body: One anchor validates the entire stack. Any modification to a layer fails the integrity check.
 
 # One-button row linking to the security page. The trust/layers mechanism and
 # the audience columns live there now, so the landing page stays a tight pitch.
@@ -110,23 +110,23 @@ exploreSecurity:
     style: ghost
 
 comparison:
-  heading: Container workflow meets VM isolation
+  heading: How Pichi compares
   # Each column header is the option's card: a colored dot, its name, and a
   # one-line verdict. dot: gray | gold | green. `win: true` tints the column.
   columns:
     - key: containers
       name: Containers
       dot: gray
-      verdict: Fast and portable, but every container shares the host kernel.
+      verdict: Fast and portable, but shares the host kernel.
     - key: vms
       name: Traditional VMs
       dot: gold
-      verdict: Strong isolation, but heavy, booting through large UEFI firmware.
+      verdict: Strong isolation, but heavy and slow to boot.
     - key: pichi
       name: Pichi
       dot: green
       win: true
-      verdict: Container workflow, true VM isolation, tiny measured boot chain.
+      verdict: Container workflow with full VM isolation.
   rows:
     # `good` lists the column keys whose cell is the strong choice on that row —
     # those cells get a green background so wins are scannable at a glance.

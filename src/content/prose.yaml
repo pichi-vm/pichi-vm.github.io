@@ -8,22 +8,14 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 heroSub: >-
-  An image management platform for building, sharing, distributing, staging and
-  running micro-VMs securely and confidentially at scale.
+  Pull and run micro-VMs over OCI registries.
 
 comparisonIntro: >-
-  Speed or isolation — until now, you had to choose. Here's how Pichi compares
-  to both.
+  Pichi boots in milliseconds like a container, with full VM isolation.
 
 trustIntro: >-
-  A Pichi image is built as layers, like a Docker image — and each layer
-  cryptographically binds to the one below it, so one trust anchor validates the
-  whole stack.
+  Pichi images are built in layers. Every block is integrity-checked at runtime.
 
-trustCaption: >-
-  Shared bases mean common layers are fetched, signed, and scanned once — then
-  reused across every image that builds on them.
 
 comparisonCaveat: >-
-  These are real virtual machines — heavier than a container, far lighter than a
-  traditional VM.
+  Real VMs cost more than containers, less than traditional VMs.
