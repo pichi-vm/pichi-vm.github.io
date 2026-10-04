@@ -22,8 +22,11 @@ import rawSecurityProse from "./security-prose.yaml";
 // A call-to-action button, reused in the hero and footer.
 export const ctaSchema = z.object({
   label: z.string(),
-  href: z.string(),
+  // Omit for a non-navigating placeholder button (pair with disabled: true).
+  href: z.string().optional(),
   style: z.enum(["primary", "ghost"]),
+  // Renders a non-interactive <span> instead of a link — a "coming soon" stub.
+  disabled: z.boolean().optional(),
 });
 
 // One numbered step in a 3-up row (How it works / Build on trust).
@@ -185,10 +188,11 @@ export const landing: Landing = landingSchema.parse(rawLanding);
 // snippet names, not section names, so any page can pull the lines it needs.
 const proseSchema = z.object({
   heroSub: z.string(),
+  // Caption under the hero command preview (e.g. a "not yet runnable" note).
+  termNote: z.string(),
   comparisonIntro: z.string(),
   trustIntro: z.string(),
   trustCaption: z.string().optional(),
-  comparisonCaveat: z.string(),
 });
 
 export type Prose = z.infer<typeof proseSchema>;

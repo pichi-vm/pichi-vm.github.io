@@ -194,6 +194,16 @@ h2.h {
   border-color: var(--accent);
   color: #fff;
 }
+/* A non-navigating placeholder button (e.g. "coming soon"): muted, no pointer,
+   and no hover response so it reads as inactive. */
+.btn-disabled {
+  color: var(--muted);
+  cursor: default;
+}
+.btn-disabled:hover {
+  border-color: var(--border);
+  color: var(--muted);
+}
 
 @media (max-width: 680px) {
   .hero h1 {

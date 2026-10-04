@@ -15,6 +15,10 @@ const { columns, rows } = content;
 // A cross-link to the other page's table renders as a sub-row under the first
 // dimension, in the winning column. Only drawn when the page fills the slot.
 const hasLink = Astro.slots.has("link");
+
+// Optional small-print caveat under the table; omit the element when unused so
+// it leaves no stray spacing.
+const hasCaveat = Astro.slots.has("caveat");
 ---
 
 <section class="section" id="compare">
@@ -61,9 +65,11 @@ const hasLink = Astro.slots.has("link");
       </tbody>
     </table>
   </div>
-  <div class="caveat">
-    <slot name="caveat" />
-  </div>
+  {hasCaveat && (
+    <div class="caveat">
+      <slot name="caveat" />
+    </div>
+  )}
 </section>
 
 <style>

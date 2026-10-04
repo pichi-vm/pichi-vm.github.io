@@ -10,11 +10,11 @@
 heroSub: >-
   Pull and run micro-VMs over OCI registries.
 
+termNote: >-
+  Preview commands, under development.
+
 comparisonIntro: >-
   Pichi boots in milliseconds like a container, with full VM isolation.
 
 trustIntro: >-
   Pichi images are built in layers. Every block is integrity-checked at runtime.
-
-comparisonCaveat: >-
-  Real VMs cost more than containers, less than traditional VMs.

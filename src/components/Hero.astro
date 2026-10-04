@@ -52,6 +52,11 @@ const { hero } = Astro.props;
       ))}</pre>
     </div>
   )}
+  {hero.commands && Astro.slots.has("termNote") && (
+    <div class="hero-term-note">
+      <slot name="termNote" />
+    </div>
+  )}
   {hero.stats && (
     <dl class="hero-stats">
       {hero.stats.map((stat) => (
@@ -166,6 +171,18 @@ const { hero } = Astro.props;
   }
   .hero-term .c {
     color: #fff;
+  }
+  /* Small muted caption under the command preview — same treatment as the
+     comparison caveat. Pulled up under the terminal (which has a 2rem bottom
+     margin) so it reads as the terminal's footnote. */
+  .hero-term-note {
+    margin: -1.4rem auto 2rem;
+    max-width: 30rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .hero-term-note :global(p) {
+    margin: 0;
   }
   /* Numbered step row above the terminal: a label + one line per command, no
      surface cards. Left-aligned text, constrained to the terminal's width so it

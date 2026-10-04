@@ -53,7 +53,7 @@ hero:
     - { value: Real VM boundary, label: hardware-isolated }
 
 why:
-  title: Built to be trusted
+  title: Built for confidential computing
   # A flat list of hover-reveal facts — only points that appear nowhere else on
   # the page. The hero stats, comparison table, and trust section already carry
   # the fast / OCI / isolated axes; this section adds the depth they don't.
@@ -81,12 +81,13 @@ trust:
       heading: Single root of trust
       body: One anchor validates the entire stack. Any modification to a layer fails the integrity check.
 
-# One-button row linking to the security page. The trust/layers mechanism and
-# the audience columns live there now, so the landing page stays a tight pitch.
+# One-button row below the footer CTAs. Placeholder while the security page is
+# unpublished — a disabled "coming soon" stub, no link. Restore the href and
+# label ("How the trust model works →" to /security) when /security ships.
 exploreSecurity:
-  - label: How the trust model works →
-    href: /security
+  - label: More coming soon
     style: ghost
+    disabled: true
 
 comparison:
   heading: How Pichi compares
@@ -121,9 +122,9 @@ comparison:
       pichi: pull / push / run over OCI
     - label: Distribution
       good: [containers, pichi]
-      containers: Incremental — pull only what changed
+      containers: Incremental, pull only what changed
       vms: Ship the whole disk image
-      pichi: Incremental — pull only what changed
+      pichi: Incremental, pull only what changed
     - label: Portability
       good: [containers, pichi]
       containers: One image, many hosts
@@ -131,13 +132,14 @@ comparison:
       pichi: One image for laptop, cloud, bare metal
     - label: Boot time
       good: [containers, pichi]
-      containers: Milliseconds — no boot
-      vms: Seconds — full firmware + OS
-      pichi: Milliseconds — tiny boot chain
+      containers: Milliseconds
+      vms: Seconds
+      pichi: Milliseconds
 
 footer:
   meta:
+    # "Security & trust" → /security removed while that page is unpublished;
+    # restore it when /security ships.
     - { label: GitHub, href: https://github.com/pichi-vm }
-    - { label: Security & trust, href: /security }
   license: Apache-2.0 licensed
   badge: open source · early / experimental

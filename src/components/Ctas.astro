@@ -1,6 +1,7 @@
 ---
 // Renders the row of call-to-action buttons. Shared by Hero and Footer.
-// Each cta: { label, href, style: "primary" | "ghost" }.
+// Each cta: { label, href, style: "primary" | "ghost", disabled? }. A disabled
+// cta renders as a non-navigating <span> stub (e.g. a "coming soon" button).
 import type { CtaContent } from "../content/schema";
 
 interface Props {
@@ -11,9 +12,15 @@ const { ctas } = Astro.props;
 ---
 
 <div class="cta-row">
-  {ctas.map((cta) => (
-    <a class={`btn btn-${cta.style}`} href={cta.href}>
-      {cta.label}
-    </a>
-  ))}
+  {ctas.map((cta) =>
+    cta.disabled ? (
+      <span class={`btn btn-${cta.style} btn-disabled`} aria-disabled="true">
+        {cta.label}
+      </span>
+    ) : (
+      <a class={`btn btn-${cta.style}`} href={cta.href}>
+        {cta.label}
+      </a>
+    ),
+  )}
 </div>
