@@ -69,22 +69,16 @@ export const problemSchema = z.object({
 
 export const whySchema = z.object({
   title: z.string(),
-  // The props are split into labelled thematic bands (Performance / Workflow /
-  // …); each band renders as a pillar: the label as a headline, a one-line
-  // thesis, then the props as a compact stacked list beneath.
-  groups: z.array(
+  // A flat list of facts, each rendered as one hover-reveal accordion row
+  // (heading + a one-line body). Holds only points that appear nowhere else on
+  // the page — the section's job is depth the hero / comparison / trust don't
+  // already cover, not a restatement of them.
+  facts: z.array(
     z.object({
-      label: z.string(),
-      // One-line thesis under the label — the pillar's headline claim.
-      thesis: z.string().optional(),
-      props: z.array(
-        z.object({
-          heading: z.string(),
-          body: z.string(),
-          // Optional muted footnote under the body.
-          note: z.string().optional(),
-        }),
-      ),
+      heading: z.string(),
+      body: z.string(),
+      // Optional muted footnote under the body.
+      note: z.string().optional(),
     }),
   ),
 });

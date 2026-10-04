@@ -53,38 +53,17 @@ hero:
     - { value: Real VM boundary, label: hardware-isolated }
 
 why:
-  title: More about Pichi
-  # Three pillars, one per axis the hero stats hit (fast / familiar / isolated).
-  # Each group: a label headline, a one-line thesis, then its props as a compact
-  # stacked list (heading + one-line body). Keep three props per pillar.
-  groups:
-    - label: Fast and light
-      thesis: Boots in milliseconds with minimal memory overhead.
-      props:
-        - heading: Tiny boot chain
-          body: No UEFI firmware or legacy emulation.
-        - heading: Low memory overhead
-          body: No firmware or emulated legacy hardware. Adds megabytes, not hundreds.
-        - heading: Run anywhere
-          body: One image runs on Linux, macOS, and Windows hosts.
-    - label: Container workflow
-      thesis: Pull, push, and run over any OCI registry.
-      props:
-        - heading: OCI registries
-          body: Pull, push, and run images over any OCI-compatible registry.
-        - heading: Incremental distribution
-          body: Built in layers. Push or pull only what changed, and build on anyone else's base.
-        - heading: Immutable images
-          body: Read-only and content-addressed. Rebuild and redeploy — what you tested is what runs.
-    - label: Isolation and trust
-      thesis: Hardware VM boundary with your own kernel, not shared with the host.
-      props:
-        - heading: Hardware isolation
-          body: Your own kernel, not a shared-kernel namespace.
-        - heading: Contract-defined hardware
-          body: PMI defines guest hardware explicitly. Host and guest negotiate resources at launch without admin privilege.
-        - heading: Confidential computing
-          body: Small, measurable trusted base built for attestation. Verify hardware configuration at boot.
+  title: Built to be trusted
+  # A flat list of hover-reveal facts — only points that appear nowhere else on
+  # the page. The hero stats, comparison table, and trust section already carry
+  # the fast / OCI / isolated axes; this section adds the depth they don't.
+  facts:
+    - heading: Contract-defined hardware
+      body: Each image defines its own hardware. Host and guest agree on resources at launch.
+    - heading: A small, attestable boot chain
+      body: A minimal, stable trusted base for reproducible measurements, vs a large UEFI firmware.
+    - heading: Immutable images
+      body: Read-only and content-addressed. What you tested is what runs.
 
 # The "Build on trust, extend it forward" steps, shown right after how-it-works.
 # Mirrors the security page's trust section (same StepsCaption component); the

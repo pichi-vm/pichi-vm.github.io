@@ -2,13 +2,11 @@
 // SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
 // SPDX-License-Identifier: Apache-2.0
 //
-// ── Feature grid: three pillars, one per axis the hero stats hit. Each pillar
-// leads with its label as a bold title and its thesis as a lighter subtitle,
-// then lists its facts as a hover accordion — hovering (or focusing) a fact
-// heading reveals its body, and a green keyline grows down the open fact's left
-// edge. Fully keyboard/touch operable via a hidden focusable checkbox, and the
-// reveal + keyline snap rather than tween under reduced motion. Collapses to one
-// column on mobile.
+// ── Feature grid: a single column of facts rendered as a hover accordion —
+// hovering (or focusing) a fact heading reveals its body, and a green keyline
+// grows down the open fact's left edge. Fully keyboard/touch operable via a
+// hidden focusable checkbox, and the reveal + keyline snap rather than tween
+// under reduced motion.
 import type { FeatureGridContent } from "../content/schema";
 
 interface Props {
@@ -20,27 +18,19 @@ const { content } = Astro.props;
 
 <section class="section" id="why">
   <h2 class="h">{content.title}</h2>
-  <div class="pillars grid grid-3">
-    {content.groups.map((group, i) => (
-      <div class="pillar">
-        <p class="pillar-label">{group.label}</p>
-        {group.thesis && <p class="thesis">{group.thesis}</p>}
-        <div class="facts">
-          {group.props.map((prop, j) => (
-            <div class="fact">
-              <input type="checkbox" id={`why-${i}-${j}`} class="fact-toggle" />
-              <label class="fact-summary" for={`why-${i}-${j}`}>
-                <span class="fact-h">{prop.heading}</span>
-                <span class="chev" aria-hidden="true" />
-              </label>
-              <div class="fact-reveal">
-                <div class="fact-reveal-inner">
-                  <p class="fact-b">{prop.body}</p>
-                  {prop.note && <p class="fact-note">{prop.note}</p>}
-                </div>
-              </div>
-            </div>
-          ))}
+  <div class="facts">
+    {content.facts.map((fact, i) => (
+      <div class="fact">
+        <input type="checkbox" id={`why-${i}`} class="fact-toggle" />
+        <label class="fact-summary" for={`why-${i}`}>
+          <span class="fact-h">{fact.heading}</span>
+          <span class="chev" aria-hidden="true" />
+        </label>
+        <div class="fact-reveal">
+          <div class="fact-reveal-inner">
+            <p class="fact-b">{fact.body}</p>
+            {fact.note && <p class="fact-note">{fact.note}</p>}
+          </div>
         </div>
       </div>
     ))}
@@ -48,37 +38,17 @@ const { content } = Astro.props;
 </section>
 
 <style>
-  .pillars {
-    margin-top: 1.75rem;
-    align-items: start;
-    /* Reserve height for the tallest single-open state so hovering a fact opens
-       into pre-allocated space instead of growing the shared grid row (which
-       would shove the footer up and down). The three pillars share one row, so
-       one buffer covers all of them; at rest this shows as a little breathing
-       room below the pillars. On mobile the stacked pillars already exceed this,
-       so the min-height is inert there and doesn't create a gap. */
-    min-height: 20rem;
-    align-content: start;
-  }
-  /* Title — the prominent header. One short phrase per pillar, so a uniform
-     size keeps the three headers the same height and their subtitles aligned. */
-  .pillar-label {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.3;
-    color: #fff;
-    margin: 0 0 0.5rem;
-  }
-  /* Subtitle — smaller and lighter than the title. */
-  .thesis {
-    margin: 0 0 1.1rem;
-    font-size: 0.85rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--muted);
+  /* Single column of facts, capped so the rows don't stretch the full page
+     width. Reserve height for the tallest single-open state so hovering a fact
+     opens into pre-allocated space instead of growing the section (which would
+     shove the footer up and down). */
+  .facts {
+    margin: 1.75rem auto 0;
+    max-width: 42rem;
+    /* Reserve room for the tallest single-open state so opening a fact doesn't
+       shove the footer. Three short facts, each a one-line body, so this is just
+       above the collapsed height plus the tallest reveal. */
+    min-height: 11rem;
   }
 
   .fact {
