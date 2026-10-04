@@ -16,6 +16,5 @@ comparisonIntro: >-
 trustIntro: >-
   Pichi images are built in layers. Every block is integrity-checked at runtime.
 
-
 comparisonCaveat: >-
   Real VMs cost more than containers, less than traditional VMs.
