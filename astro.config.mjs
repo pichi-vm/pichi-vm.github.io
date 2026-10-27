@@ -5,7 +5,7 @@ import yaml from "@rollup/plugin-yaml";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://pichi-vm.github.io",
+  site: "https://pichi.dev",
   base: "/",
   // Emits sitemap-index.xml + sitemap-0.xml from `site` above.
   integrations: [sitemap()],
