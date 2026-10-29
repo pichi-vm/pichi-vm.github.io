@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
       - name: Build with Astro
         # node-version omitted: the action reads .nvmrc, keeping it the single
         # source of truth (CI does the same via node-version-file).
