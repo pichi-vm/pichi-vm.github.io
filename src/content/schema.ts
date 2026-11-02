@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
 // SPDX-License-Identifier: Apache-2.0
-//
+
 // Content schemas for the site. Raw YAML is parsed through these Zod shapes at
 // build time, so a bad edit — a misspelled `style`, an unknown `dot` color, a
 // missing field — fails `astro build` with a clear message instead of silently
