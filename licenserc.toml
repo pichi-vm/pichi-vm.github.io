@@ -1,0 +1,17 @@
+# Source files carry short copyright and license lines; LICENSE has the text.
+inlineHeader = """
+SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+SPDX-License-Identifier: Apache-2.0
+"""
+includes = ["**/*.astro", "**/*.ts", "**/*.js", "**/*.mjs", "**/*.css", "src/**/*.yaml"]
+excludes = ["node_modules/**", "dist/**", ".astro/**"]
+additionalHeaders = [".github/license-styles.toml"]
+
+[mapping.DOUBLESLASH_STYLE]
+extensions = ["ts", "js", "mjs"]
+
+[mapping.ASTRO_SCRIPT]
+extensions = ["astro"]
+
+[mapping.CSS_LINE]
+extensions = ["css"]

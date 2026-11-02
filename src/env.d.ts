@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+
 /// <reference path="../.astro/types.d.ts" />
 
 // @rollup/plugin-yaml returns the parsed document as the default export.

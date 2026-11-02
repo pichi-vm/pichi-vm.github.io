@@ -1,0 +1,22 @@
+# Keep the opening script fence first in site templates.
+[ASTRO_SCRIPT]
+firstLine = "---"
+endLine = "//\n"
+beforeEachLine = "// "
+afterEachLine = ""
+allowBlankLines = false
+multipleLines = true
+padLines = false
+firstLineDetectionPattern = '^---$'
+lastLineDetectionPattern = '^//$'
+
+[CSS_LINE]
+firstLine = ""
+endLine = "\n"
+beforeEachLine = "/* "
+afterEachLine = " */"
+allowBlankLines = false
+multipleLines = false
+padLines = false
+firstLineDetectionPattern = '^/\*.*$'
+lastLineDetectionPattern = '^.*\*/$'
