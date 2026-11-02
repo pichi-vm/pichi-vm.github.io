@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Security page content. Same shape and conventions as landing.yaml: this file
 # holds the structured/repeated items (CTA buttons, steps, list columns); the

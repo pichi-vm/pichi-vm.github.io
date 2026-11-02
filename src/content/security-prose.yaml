@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Standalone prose for the security page — same contract as prose.yaml: each
 # value is one paragraph, rendered as its own <p> via a named slot with

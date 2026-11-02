@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Standalone section prose — the paragraphs that head or caption a section.
 # Kept apart from landing.yaml (which holds repeated/structured items) so the
