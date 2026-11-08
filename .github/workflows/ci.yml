@@ -25,6 +25,13 @@ jobs:
           fetch-depth: 0
       - run: pipx run gitlint --commits "origin/${{ github.base_ref || 'main' }}..HEAD"
 
+  license-headers:
+    name: license headers
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: korandoru/hawkeye@v6
+
   build:
     runs-on: ubuntu-24.04
     steps:
