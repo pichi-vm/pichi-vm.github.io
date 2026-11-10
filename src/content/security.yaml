@@ -19,7 +19,7 @@ ctas:
     style: primary
 
 hero:
-  logoAlt: pichi-vm mascot — a curled-up armadillo line drawing
+  logoAlt: pichi-vm mascot — a color cartoon armadillo wearing a headband and flower
   eyebrow: pichi-vm · security
   # <br> marks the line break in the headline.
   title: A small trusted base,<br>verifiable end to end.

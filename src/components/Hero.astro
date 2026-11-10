@@ -14,7 +14,7 @@ const { hero } = Astro.props;
   <div class="hero-head">
     <img
       class="hero-mascot"
-      src="/pichi-logo.png"
+      src="/pichi-logo.svg"
       width="247"
       height="260"
       alt={hero.logoAlt}
@@ -91,20 +91,18 @@ const { hero } = Astro.props;
   .hero-headings {
     text-align: center;
   }
-  /* The mascot is black line-art on transparency; invert() flips it to white so
-     it reads on the dark background, then dim it so the title stays dominant.
-     Anchored to the headings' left edge and shifted left by ~80% of its own
-     width, so only ~20% tucks behind the title — a constant overlap at any
-     width (it moves with the centered block, not the column edge). */
+  /* The mascot is a full-color illustration, shown as-is (no invert/dim — it
+     reads on the dark background on its own). Anchored to the headings' left
+     edge and shifted left by ~82% of its own width, so only ~18% tucks behind
+     the title — a constant overlap at any width (it moves with the centered
+     block, not the column edge). */
   .hero-mascot {
     position: absolute;
     top: 50%;
     left: 0;
     height: 10rem;
     width: auto;
-    transform: translate(-80%, -50%);
-    filter: invert(1);
-    opacity: 0.5;
+    transform: translate(-82%, -50%);
     pointer-events: none;
     user-select: none;
   }
