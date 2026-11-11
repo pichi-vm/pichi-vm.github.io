@@ -24,8 +24,6 @@ demo:
   rows: 34
   duration: "5:12"
   terminalLabel: pichi · Ubuntu + Codex
-  zoomLabel: Larger terminal text
-  zoomHint: Swipe sideways to read the full terminal. Rotate your phone for more room.
   fallback: Enable JavaScript to play the demo, or download the recording below.
   markers:
     - [0, Recipe and lock]

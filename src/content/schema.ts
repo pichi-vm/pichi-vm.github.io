@@ -22,8 +22,6 @@ const recordingSchema = z.object({
   rows: z.number().int().positive(),
   duration: z.string(),
   terminalLabel: z.string(),
-  zoomLabel: z.string(),
-  zoomHint: z.string(),
   fallback: z.string(),
   markers: z.array(z.tuple([z.number().nonnegative(), z.string()])),
 });
