@@ -24,6 +24,7 @@ import FeatureGrid from "../components/FeatureGrid.astro";
 import StepsCaption from "../components/StepsCaption.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
 import SectionNav from "../components/SectionNav.astro";
+import TerminalRecording from "../components/TerminalRecording.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -33,6 +34,10 @@ import Footer from "../components/Footer.astro";
     <p slot="sub" set:html={prose.heroSub} />
     <p slot="termNote" set:html={prose.termNote} />
   </Hero>
+  <TerminalRecording content={landing.demo}>
+    <p slot="intro" set:html={prose.demoIntro} />
+    <p slot="caption" set:html={prose.demoCaption} />
+  </TerminalRecording>
   <ComparisonTable content={landing.comparison}>
     <p slot="intro" set:html={prose.comparisonIntro} />
   </ComparisonTable>
@@ -43,6 +48,7 @@ import Footer from "../components/Footer.astro";
   <Footer footer={landing.footer} ctas={footerCtas} />
   <SectionNav
     targets={[
+      { href: "#demo", label: "Watch the demo" },
       { href: "#compare", label: "Containers vs. VMs" },
       { href: "#trust", label: "Build on trust" },
       { href: "#why", label: "Built for confidential computing" },

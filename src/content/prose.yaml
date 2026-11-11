@@ -18,3 +18,11 @@ comparisonIntro: >-
 
 trustIntro: >-
   Pichi images are built in layers. Every block is integrity-checked at runtime.
+
+demoIntro: >-
+  Build an Ubuntu image, inspect its layers and provenance, then run Codex
+  inside a VM with two vCPUs and 512 MiB of memory.
+
+demoCaption: >-
+  A five-minute terminal recording with real build output. Pause, seek, or use
+  fullscreen to explore the details. Runtime attestation is planned, not yet implemented.

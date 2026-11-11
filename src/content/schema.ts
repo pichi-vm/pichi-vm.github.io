@@ -98,6 +98,14 @@ export const tryItSchema = z.object({
   terminal: z.array(terminalLineSchema),
 });
 
+export const recordingSchema = z.object({
+  title: z.string(),
+  src: z.string(),
+  downloadLabel: z.string(),
+  cols: z.number().int().positive(),
+  rows: z.number().int().positive(),
+});
+
 export const trustSchema = z.object({
   heading: z.string(),
   steps: z.array(stepSchema),
@@ -154,6 +162,7 @@ export const footerSchema = z.object({
 const landingSchema = z.object({
   ctas: z.array(ctaSchema),
   hero: heroSchema,
+  demo: recordingSchema,
   why: whySchema,
   // The "Build on trust, extend it forward" steps, shown after how-it-works.
   // Same shape (and component) as the security page's trust section.
@@ -174,6 +183,7 @@ export type StepContent = z.infer<typeof stepSchema>;
 export type HeroContent = z.infer<typeof heroSchema>;
 export type CardGridContent = z.infer<typeof problemSchema>;
 export type FeatureGridContent = z.infer<typeof whySchema>;
+export type RecordingContent = z.infer<typeof recordingSchema>;
 export type TerminalContent = z.infer<typeof tryItSchema>;
 export type StepsCaptionContent = z.infer<typeof trustSchema>;
 export type ColumnListsContent = z.infer<typeof whoSchema>;
@@ -190,6 +200,8 @@ const proseSchema = z.object({
   heroSub: z.string(),
   // Caption under the hero command preview (e.g. a "not yet runnable" note).
   termNote: z.string(),
+  demoIntro: z.string(),
+  demoCaption: z.string(),
   comparisonIntro: z.string(),
   trustIntro: z.string(),
   trustCaption: z.string().optional(),

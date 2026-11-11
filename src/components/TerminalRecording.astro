@@ -1,0 +1,68 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+import type { RecordingContent } from "../content/schema";
+import "asciinema-player/dist/bundle/asciinema-player.css";
+
+interface Props {
+  content: RecordingContent;
+}
+
+const { content } = Astro.props;
+---
+
+<section class="section" id="demo" aria-labelledby="demo-title">
+  <h2 class="section-title" id="demo-title">
+    {content.title}
+  </h2>
+  <div class="section-desc">
+    <slot name="intro" />
+  </div>
+  <div
+    data-recording
+    data-src={content.src}
+    data-cols={content.cols}
+    data-rows={content.rows}
+    aria-label={content.title}
+  ></div>
+  <div class="caption">
+    <slot name="caption" />
+  </div>
+  <a href={content.src} download>
+    {content.downloadLabel}
+  </a>
+</section>
+
+<script>
+  import { create } from "asciinema-player";
+
+  for (const element of document.querySelectorAll<HTMLElement>(
+    "[data-recording]",
+  )) {
+    const source = element.dataset.src;
+    if (source) {
+      create(source, element, {
+        cols: Number(element.dataset.cols),
+        rows: Number(element.dataset.rows),
+        fit: "width",
+        poster: "npt:12",
+      });
+    }
+  }
+</script>
+
+<style>
+  [data-recording] {
+    width: min(76rem, calc(100vw - 3rem));
+    margin-left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .caption {
+    margin: 1rem 0 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+</style>

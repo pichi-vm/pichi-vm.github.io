@@ -52,6 +52,13 @@ hero:
     - { value: OCI native, label: pull · push · run }
     - { value: Real VM boundary, label: hardware-isolated }
 
+demo:
+  title: From recipe to running VM
+  src: /recordings/codex.cast
+  downloadLabel: Download the asciinema recording
+  cols: 128
+  rows: 34
+
 why:
   title: Built for confidential computing
   # A flat list of hover-reveal facts — only points that appear nowhere else on
