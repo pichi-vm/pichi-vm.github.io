@@ -1,57 +1,35 @@
 ---
 // SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
 // SPDX-License-Identifier: Apache-2.0
-//
-// The landing page: the one place that reads content and wires it into the
-// section components. Data slices come from landing.yaml and prose paragraphs
-// from prose.yaml (both via the schema); each prose line is rendered into a
-// section's named slot with set:html. A new page follows this same shape —
-// import the sections it reuses, hand them their data + prose.
 import Layout from "../layouts/Layout.astro";
 import { landing, prose } from "../content/schema";
-
-// The footer keeps the hero's primary "View the source" button but swaps the
-// secondary for the trust-model link (which used to sit in its own row above).
-const footerCtas = [landing.ctas[0], ...landing.exploreSecurity];
-
-// Components are named for the layout they render; this page maps each content
-// slice onto one. e.g. the "problem" content renders as a CardGrid, "why" as a
-// FeatureGrid — a different page could render its own content through the same
-// components.
-import UnderConstructionBanner from "../components/UnderConstructionBanner.astro";
+import TopBar from "../components/TopBar.astro";
 import Hero from "../components/Hero.astro";
-import FeatureGrid from "../components/FeatureGrid.astro";
-import StepsCaption from "../components/StepsCaption.astro";
-import ComparisonTable from "../components/ComparisonTable.astro";
-import SectionNav from "../components/SectionNav.astro";
 import TerminalRecording from "../components/TerminalRecording.astro";
+import LayerStack from "../components/LayerStack.astro";
+import SplitPanel from "../components/SplitPanel.astro";
 import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-  <UnderConstructionBanner />
-  <Hero hero={landing.hero}>
-    <p slot="sub" set:html={prose.heroSub} />
-    <p slot="termNote" set:html={prose.termNote} />
-  </Hero>
-  <TerminalRecording content={landing.demo}>
-    <p slot="intro" set:html={prose.demoIntro} />
-    <p slot="caption" set:html={prose.demoCaption} />
-  </TerminalRecording>
-  <ComparisonTable content={landing.comparison}>
-    <p slot="intro" set:html={prose.comparisonIntro} />
-  </ComparisonTable>
-  <StepsCaption content={landing.trust} id="trust">
-    <p slot="intro" set:html={prose.trustIntro} />
-  </StepsCaption>
-  <FeatureGrid content={landing.why} />
-  <Footer footer={landing.footer} ctas={footerCtas} />
-  <SectionNav
-    targets={[
-      { href: "#demo", label: "Watch the demo" },
-      { href: "#compare", label: "Containers vs. VMs" },
-      { href: "#trust", label: "Build on trust" },
-      { href: "#why", label: "Built for confidential computing" },
-    ]}
-  />
+  <TopBar links={landing.navigation} />
+  <main id="main">
+    <Hero content={landing.hero}>
+      <p slot="intro">{prose.heroSub}</p>
+    </Hero>
+    <TerminalRecording content={landing.demo}>
+      <p slot="intro">{prose.demoIntro}</p>
+      <p slot="caption">{prose.demoCaption}</p>
+    </TerminalRecording>
+    <LayerStack content={landing.image}>
+      <p slot="intro">{prose.imageIntro}</p>
+    </LayerStack>
+    <SplitPanel content={landing.status}>
+      <p slot="intro">{prose.statusIntro}</p>
+      <p slot="note">{prose.integrityNote}</p>
+    </SplitPanel>
+  </main>
+  <Footer content={landing.footer}>
+    <p slot="intro">{prose.footerIntro}</p>
+  </Footer>
 </Layout>

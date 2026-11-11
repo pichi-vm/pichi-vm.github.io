@@ -1,28 +1,23 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# Standalone section prose — the paragraphs that head or caption a section.
-# Kept apart from landing.yaml (which holds repeated/structured items) so the
-# wording lives in one place; each value is rendered as its own <p> via a named
-# slot in the page. Plain text is fine; for emphasis or a line break, write
-# inline HTML (e.g. <br>, <strong>) — values are rendered with set:html, so
-# HTML is live but Markdown syntax like **bold** is not processed.
-# ─────────────────────────────────────────────────────────────────────────────
-
+# SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+# SPDX-License-Identifier: Apache-2.0
 heroSub: >-
-  Pull and run micro-VMs over OCI registries.
-
-termNote: >-
-  Preview commands, under development.
-
-comparisonIntro: >-
-  Pichi boots in milliseconds like a container, with full VM isolation.
-
-trustIntro: >-
-  Pichi images are built in layers. Every block is integrity-checked at runtime.
-
+  Build, distribute, and run Linux virtual machines as OCI images.
+  Your workload gets its own kernel, with a command-line workflow you already know.
 demoIntro: >-
-  Build an Ubuntu image, inspect its layers and provenance, then run Codex
-  inside a VM with two vCPUs and 512 MiB of memory.
-
+  Start with Ubuntu. Install Codex. Inspect the image, then let the agent
+  discover the machine it is running in.
 demoCaption: >-
-  A five-minute terminal recording with real build output. Pause, seek, or use
-  fullscreen to explore the details. Runtime attestation is planned, not yet implemented.
+  Recorded in real time with 2 vCPUs and 512 MiB of guest memory.
+  Use fullscreen for a closer look.
+imageIntro: >-
+  Pichi packages the filesystem, boot payload, and launch configuration together.
+  OCI registries carry the artifact; Pichi launches it as a virtual machine.
+statusIntro: >-
+  Pichi is experimental software in active development.
+  The demo shows what works today; the security roadmap goes further.
+integrityNote: >-
+  Integrity checks verify image blocks against a trusted hash. They do not
+  establish who built an image or protect a guest from a malicious host.
+footerIntro: >-
+  Start with the command reference and build guide. Bring an application,
+  try the workflow, and help shape what comes next.

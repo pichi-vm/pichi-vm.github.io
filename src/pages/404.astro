@@ -1,56 +1,56 @@
 ---
 // SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
 // SPDX-License-Identifier: Apache-2.0
-// GitHub Pages serves this as /404.html for any unmatched path.
 import Layout from "../layouts/Layout.astro";
+import TopBar from "../components/TopBar.astro";
+import { landing } from "../content/schema";
 ---
 
-<Layout>
-  <section class="notfound">
+<Layout
+  title="Page not found — Pichi"
+  description="This page could not be found. Return to Pichi to explore the project and watch the demo."
+>
+  <TopBar
+    links={landing.navigation.map((link) => ({
+      ...link,
+      href: link.href.startsWith("#") ? `/${link.href}` : link.href,
+    }))}
+  />
+  <main id="main" class="wrap notfound">
     <img
-      class="logo"
       src="/pichi-logo.svg"
-      width="247"
-      height="260"
-      alt="pichi-vm mascot"
+      width="180"
+      height="180"
+      alt="Pichi the armadillo"
     />
-    <p class="code">404</p>
-    <h1>Page not found</h1>
-    <p class="sub">That page doesn't exist — or hasn't been built yet.</p>
-    <a class="btn btn-primary" href="/">
-      Back to home
+    <p class="eyebrow">404 / A wrong turn</p>
+    <h1>Nothing in this shell.</h1>
+    <p>That page doesn’t exist. Let’s get you back to Pichi.</p>
+    <a class="btn" href="/">
+      Back to home <span aria-hidden="true">↗</span>
     </a>
-  </section>
+  </main>
 </Layout>
-
 <style>
   .notfound {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding-block: 3rem;
     text-align: center;
-    padding: 5rem 0;
   }
-  .logo {
-    width: auto;
-    height: 94px;
-    margin: 0 auto 1.5rem;
-    display: block;
-    border-radius: 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 0.6rem;
+  .notfound img {
+    width: 180px;
   }
-  .code {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+  }
+  .notfound > p:not(.eyebrow) {
     color: var(--muted);
-  }
-  .notfound h1 {
-    font-size: 1.8rem;
-    color: #fff;
-    margin: 0.25rem 0 0.75rem;
-  }
-  .sub {
-    color: var(--muted);
-    margin-bottom: 2rem;
   }
 </style>

@@ -1,0 +1,71 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+import type { LinkContent } from "../content/schema";
+interface Props {
+  links: LinkContent[];
+}
+const { links } = Astro.props;
+---
+
+<div class="wrap">
+  <header class="topbar">
+    <a class="wordmark" href="/" aria-label="Pichi home">
+      pichi<span aria-hidden="true">.</span>
+    </a>
+    <nav aria-label="Main navigation">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+  </header>
+</div>
+<style>
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .wordmark {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    text-decoration: none;
+  }
+  .wordmark span {
+    color: var(--accent);
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+  }
+  nav a {
+    font-size: 0.85rem;
+    font-weight: 550;
+    text-decoration: none;
+  }
+  nav a:hover {
+    color: var(--accent);
+  }
+  @media (max-width: 600px) {
+    .topbar {
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    nav {
+      display: grid;
+      grid-template-columns: repeat(2, max-content);
+      text-align: right;
+      gap: 0.6rem 1rem;
+      max-width: 17rem;
+    }
+    nav a {
+      font-size: 0.75rem;
+    }
+  }
+</style>

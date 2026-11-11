@@ -1,55 +1,94 @@
 ---
-// ── Footer ────────────────────────────────────────────
-import type { FooterContent, CtaContent } from "../content/schema";
-import Ctas from "./Ctas.astro";
-
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+import type { FooterContent } from "../content/schema";
 interface Props {
-  footer: FooterContent;
-  ctas: CtaContent[];
+  content: FooterContent;
 }
-
-const { footer, ctas } = Astro.props;
+const { content } = Astro.props;
 ---
 
-<footer class="foot">
-  <Ctas ctas={ctas} />
-  <p class="foot-meta">
-    {footer.meta.map((link) => (
-      <Fragment>
-        <a href={link.href}>{link.label}</a> ·{" "}
-      </Fragment>
-    ))}
-    {footer.license}
-  </p>
-  <span class="badge">{footer.badge}</span>
+<footer>
+  <div class="wrap closing">
+    <div>
+      <h2>{content.title}</h2>
+      <div class="closing-copy">
+        <slot name="intro" />
+      </div>
+    </div>
+    <div class="footer-links">
+      {content.links.map((link) => (
+        <a href={link.href}>
+          {link.label}
+          <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+  <div class="wrap colophon">
+    <a class="wordmark" href="/">
+      pichi.
+    </a>
+    <a href={content.licenseHref}>{content.license}</a>
+  </div>
 </footer>
-
 <style>
-  .foot {
-    padding-top: 1rem;
-    text-align: center;
+  footer {
+    background: #222c25;
+    color: #f6f3eb;
+    padding-top: 4rem;
   }
-  .foot :global(.cta-row) {
-    margin-bottom: 2.25rem;
+  .closing {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 5rem;
+    padding-bottom: 4rem;
   }
-  .foot-meta {
-    font-size: 0.85rem;
-    color: var(--muted);
+  h2 {
+    max-width: 24rem;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
   }
-  .foot-meta a {
+  .closing-copy {
+    max-width: 30rem;
+    margin-top: 1rem;
+    color: #c1cbc2;
+    font-size: 0.95rem;
+  }
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .footer-links a {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #536057;
     text-decoration: none;
   }
-  .foot-meta a:hover {
-    text-decoration: underline;
+  .footer-links a:hover {
+    color: #ffb59e;
   }
-  .badge {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--gold);
-    border: 1px solid #5a4620;
-    border-radius: 999px;
-    padding: 0.15rem 0.6rem;
-    margin-top: 1rem;
+  .colophon {
+    border-top: 1px solid #536057;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.5rem;
+    font-size: 0.75rem;
+    color: #c1cbc2;
+  }
+  .wordmark {
+    font-size: 1.4rem;
+    letter-spacing: -0.07em;
+    font-weight: 750;
+    color: #f6f3eb;
+    text-decoration: none;
+  }
+  @media (max-width: 700px) {
+    .closing {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
   }
 </style>

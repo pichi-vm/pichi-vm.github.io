@@ -1,0 +1,133 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+import type { SplitPanelContent } from "../content/schema";
+interface Props {
+  content: SplitPanelContent;
+}
+const { content } = Astro.props;
+---
+
+<section
+  class="status-section section"
+  id="status"
+  aria-labelledby="status-title"
+>
+  <div class="wrap">
+    <div class="section-heading">
+      <p class="eyebrow">{content.eyebrow}</p>
+      <h2 id="status-title">{content.title}</h2>
+      <div class="section-intro">
+        <slot name="intro" />
+      </div>
+    </div>
+    <div class="panels">
+      <div class="panel current">
+        <p class="label">
+          <span aria-hidden="true"></span>
+          {content.current.label}
+        </p>
+        <h3>{content.current.title}</h3>
+        <ul>
+          {content.current.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <div class="integrity-note">
+          <slot name="note" />
+        </div>
+      </div>
+      <div class="panel planned">
+        <p class="label">
+          <span aria-hidden="true"></span>
+          {content.planned.label}
+        </p>
+        <h3>{content.planned.title}</h3>
+        <p class="planned-body">{content.planned.body}</p>
+        <a class="text-link" href={content.planned.link.href}>
+          {content.planned.link.label}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .status-section {
+    border-top: 1px solid var(--border);
+  }
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 2.5rem;
+    border-block: 1px solid var(--border);
+  }
+  .panel {
+    padding: 2rem 0;
+  }
+  .current {
+    padding-right: 3.5rem;
+  }
+  .planned {
+    border-left: 1px solid var(--border);
+    padding-left: 3.5rem;
+  }
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+    font: 0.7rem var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .label span {
+    width: 7px;
+    height: 7px;
+    background: #427148;
+    border-radius: 50%;
+  }
+  .planned .label span {
+    background: transparent;
+    border: 1px solid var(--muted);
+  }
+  h3 {
+    max-width: 20rem;
+  }
+  ul {
+    padding-left: 1.1rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 1.4rem 0;
+  }
+  li + li {
+    margin-top: 0.6rem;
+  }
+  .integrity-note {
+    color: var(--muted);
+    font-size: 0.8rem;
+    max-width: 29rem;
+  }
+  .planned-body {
+    margin-top: 1.4rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 28rem;
+  }
+  .text-link {
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 700px) {
+    .panels {
+      grid-template-columns: 1fr;
+    }
+    .current {
+      padding-right: 0;
+    }
+    .planned {
+      padding-left: 0;
+      border-left: 0;
+      border-top: 1px solid var(--border);
+    }
+  }
+</style>

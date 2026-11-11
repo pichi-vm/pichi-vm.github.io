@@ -14,8 +14,8 @@ interface Props {
 }
 
 const {
-  title = "pichi-vm — The container workflow, for real virtual machines",
-  description = "pichi-vm brings the container workflow to full virtual machines: one portable image that boots identically on your laptop, in the cloud, or on bare metal, with real isolation and a small, fast boot chain with a deterministic launch measurement.",
+  title = "Pichi — Container workflow. VM isolation.",
+  description = "Build, distribute, and run Linux virtual machines as OCI images. See the Pichi workflow in a real terminal demo and explore the image format.",
   socialDescription = description,
   ogImage = "/pichi-logo.png",
 } = Astro.props;
@@ -48,8 +48,9 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body>
-    <div class="page">
-      <slot />
-    </div>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <slot />
   </body>
 </html>

@@ -1,0 +1,150 @@
+---
+// SPDX-FileCopyrightText: Advanced Micro Devices, Inc.
+// SPDX-License-Identifier: Apache-2.0
+import type { LayerStackContent } from "../content/schema";
+interface Props {
+  content: LayerStackContent;
+}
+const { content } = Astro.props;
+---
+
+<section
+  class="section wrap image-section"
+  id="design"
+  aria-labelledby="design-title"
+>
+  <div class="section-heading">
+    <p class="eyebrow">{content.eyebrow}</p>
+    <h2 id="design-title">{content.title}</h2>
+    <div class="section-intro">
+      <slot name="intro" />
+    </div>
+    <a class="text-link" href={content.link.href}>
+      {content.link.label}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  <div class="artifact">
+    <div class="artifact-heading">
+      <span class="artifact-mark" aria-hidden="true">
+        ◇
+      </span>
+      {content.label}
+    </div>
+    <dl>
+      {content.parts.map((part, i) => (
+        <div class:list={["artifact-part", part.tone]}>
+          <dt>
+            <span class="part-number" aria-hidden="true">
+              0{i + 1}
+            </span>
+            <span>
+              {part.name}
+              <small>{part.detail}</small>
+            </span>
+          </dt>
+          <dd>{part.body}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+<style>
+  .image-section {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 6rem;
+  }
+  .section-heading {
+    padding-top: 0.5rem;
+  }
+  .text-link {
+    margin-top: 2rem;
+  }
+  .artifact {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--paper);
+    padding: 0 1.75rem;
+  }
+  .artifact-heading {
+    padding-block: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    border-bottom: 1px solid var(--border);
+    font: 0.75rem var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .artifact-mark {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  dl {
+    margin: 0;
+  }
+  .artifact-part {
+    padding-block: 1.35rem;
+  }
+  .artifact-part + .artifact-part {
+    border-top: 1px solid var(--border);
+  }
+  dt {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 1.15rem;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+  dt small {
+    display: block;
+    margin-top: 0.3rem;
+    font: 0.65rem var(--font-mono);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .part-number {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+    font: 0.7rem var(--font-mono);
+    background: #e6edf0;
+    color: #28516d;
+  }
+  .purple .part-number {
+    background: #eee6f0;
+    color: #70407d;
+  }
+  .orange .part-number {
+    background: #f6e5d8;
+    color: #8b451e;
+  }
+  .green .part-number {
+    background: #e4ecdf;
+    color: #3c6135;
+  }
+  dd {
+    margin: 0.8rem 0 0 2.8rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  @media (max-width: 900px) {
+    .image-section {
+      gap: 3rem;
+    }
+  }
+  @media (max-width: 700px) {
+    .image-section {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .artifact {
+      padding-inline: 1.25rem;
+    }
+  }
+</style>
