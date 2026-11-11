@@ -24,6 +24,11 @@ const { content } = Astro.props;
         <span aria-hidden="true"> / </span>ASCIINEMA
       </span>
     </div>
+    <label class="terminal-zoom">
+      <input type="checkbox" aria-controls="demo-terminal" />
+      {content.zoomLabel}
+    </label>
+    <p class="zoom-hint">{content.zoomHint}</p>
     <div class="terminal-shell">
       <div class="terminal-bar" aria-hidden="true">
         <span class="dots">
@@ -35,16 +40,24 @@ const { content } = Astro.props;
         <span class="terminal-indicator">RECORDED SESSION</span>
       </div>
       <div
-        data-recording
-        data-src={content.src}
-        data-cols={content.cols}
-        data-rows={content.rows}
-        data-markers={JSON.stringify(content.markers)}
+        class="terminal-viewport"
+        id="demo-terminal"
+        tabindex="0"
+        role="region"
         aria-label={content.title}
       >
-        <noscript>
-          <p class="fallback">{content.fallback}</p>
-        </noscript>
+        <div
+          data-recording
+          data-src={content.src}
+          data-cols={content.cols}
+          data-rows={content.rows}
+          data-markers={JSON.stringify(content.markers)}
+          aria-label={content.title}
+        >
+          <noscript>
+            <p class="fallback">{content.fallback}</p>
+          </noscript>
+        </div>
       </div>
     </div>
     <div class="demo-caption">
@@ -105,6 +118,10 @@ const { content } = Astro.props;
     color: var(--muted);
     font: 0.7rem var(--font-mono);
   }
+  .terminal-zoom,
+  .zoom-hint {
+    display: none;
+  }
   .terminal-shell {
     background: #111111;
     color: #ccc;
@@ -161,6 +178,71 @@ const { content } = Astro.props;
   }
   .demo-caption a {
     white-space: nowrap;
+  }
+  @media (max-width: 900px) {
+    .demo-section:has(.ap-wrapper) .terminal-zoom {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 44px;
+      width: fit-content;
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    .terminal-zoom input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--accent);
+    }
+    .demo-section:has(.terminal-zoom input:checked) .zoom-hint {
+      display: block;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    .terminal-viewport {
+      overflow-x: auto;
+      container-type: inline-size;
+    }
+    .demo-section:has(.terminal-zoom input:checked) [data-recording] {
+      min-width: 960px;
+    }
+    [data-recording] :global(.ap-wrapper:not(:fullscreen) .ap-player) {
+      overflow: visible;
+      height: auto !important;
+    }
+    [data-recording] :global(.ap-control-bar) {
+      opacity: 1;
+    }
+    [data-recording] :global(.ap-wrapper:not(:fullscreen) .ap-control-bar) {
+      position: sticky;
+      left: 0;
+      width: 100cqw;
+      height: 44px;
+    }
+    [data-recording] :global(.ap-wrapper:not(:fullscreen) .ap-button) {
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+    }
+    [data-recording] :global(.ap-wrapper:not(:fullscreen) .ap-gutter) {
+      top: 21px;
+    }
+    [data-recording] :global(.ap-wrapper:not(:fullscreen) .ap-marker) {
+      top: 19px;
+      bottom: 18px;
+    }
+    [data-recording] :global(.ap-kbd-button) {
+      display: none;
+    }
+  }
+  @media (hover: none) {
+    [data-recording] :global(.ap-tooltip) {
+      display: none;
+    }
   }
   @media (max-width: 700px) {
     .demo-heading,
