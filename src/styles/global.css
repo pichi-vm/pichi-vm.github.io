@@ -146,6 +146,12 @@ h3 {
   .wrap {
     width: calc(100% - 2.5rem);
   }
+  .section {
+    padding-block: 3rem;
+  }
+  .text-link {
+    min-height: 44px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
